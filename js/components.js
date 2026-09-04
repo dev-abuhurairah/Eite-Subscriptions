@@ -42,9 +42,7 @@ function renderUniversalNavbar() {
           
           <!-- Logo & Brand -->
           <a href="index.html" class="flex items-center gap-2.5 group text-decoration-none py-1">
-            <div class="w-9 h-9 rounded-xl bg-slate-900 flex items-center justify-center p-1 shadow-sm group-hover:scale-105 group-hover:bg-slate-800 transition-all border border-slate-800 shrink-0">
-              <img src="assets/logo-icon-transparent.png" alt="Abu Hurairah Subscriptions Logo" class="w-7 h-7 object-contain drop-shadow" />
-            </div>
+            <img src="assets/logo-icon-transparent.png" alt="Abu Hurairah Subscriptions Logo" class="h-8 sm:h-9 w-auto object-contain group-hover:scale-105 transition-transform shrink-0" />
             <div>
               <div class="font-heading font-bold text-slate-900 text-sm sm:text-base leading-tight flex items-center gap-1.5">
                 Abu Hurairah
@@ -154,9 +152,7 @@ function renderUniversalFooter() {
           <!-- Brand & Bio -->
           <div class="md:col-span-1 space-y-3">
             <div class="flex items-center gap-2.5">
-              <div class="w-9 h-9 rounded-xl bg-slate-900 flex items-center justify-center p-1 shadow-sm border border-slate-800 shrink-0">
-                <img src="assets/logo-icon-transparent.png" alt="Abu Hurairah Subscriptions Logo" class="w-7 h-7 object-contain" />
-              </div>
+              <img src="assets/logo-icon-transparent.png" alt="Abu Hurairah Subscriptions Logo" class="h-8 sm:h-9 w-auto object-contain shrink-0" />
               <span class="font-heading font-bold text-slate-900 text-base sm:text-lg">Abu Hurairah</span>
             </div>
             <p class="text-xs sm:text-sm text-slate-500 leading-relaxed">
