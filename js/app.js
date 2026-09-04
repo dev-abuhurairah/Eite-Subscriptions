@@ -83,36 +83,36 @@ function initTrendingCarousel() {
           <!-- Ambient Glow Circle -->
           <div class="absolute -right-8 -bottom-8 w-36 h-36 rounded-full opacity-35 blur-2xl pointer-events-none" style="background-color: ${p.accentColor};"></div>
           
-          <div class="relative z-10 flex flex-col items-center justify-center p-4 text-center">
-            <div class="w-14 h-14 rounded-2xl flex items-center justify-center shadow-lg mb-2.5 border border-white/20" style="background: rgba(255, 255, 255, 0.12); backdrop-filter: blur(8px);">
-              <div class="[&_svg]:w-8 [&_svg]:h-8 [&_svg]:text-white">
+          <div class="relative z-10 flex flex-col items-center justify-center p-3 sm:p-4 text-center">
+            <div class="w-11 h-11 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl flex items-center justify-center shadow-lg mb-1.5 sm:mb-2.5 border border-white/20" style="background: rgba(255, 255, 255, 0.12); backdrop-filter: blur(8px);">
+              <div class="[&_svg]:w-6 [&_svg]:h-6 sm:[&_svg]:w-8 sm:[&_svg]:h-8 [&_svg]:text-white">
                 ${p.iconSvg}
               </div>
             </div>
-            <span class="text-white font-extrabold text-base tracking-tight drop-shadow-sm font-heading">
+            <span class="text-white font-extrabold text-sm sm:text-base tracking-tight drop-shadow-sm font-heading">
               ${p.fullName || p.name}
             </span>
-            <span class="text-[11px] text-white/80 font-semibold mt-0.5 drop-shadow-sm">
+            <span class="text-[10px] sm:text-[11px] text-white/80 font-semibold mt-0.5 drop-shadow-sm">
               ${p.tagline || p.categoryLabel}
             </span>
           </div>
-
+          
           <!-- Top Free Promo Tag -->
-          <div class="absolute top-3 right-3 bg-primary text-white text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full shadow-md">
+          <div class="absolute top-2.5 right-2.5 sm:top-3 sm:right-3 bg-primary text-white text-[9px] sm:text-[10px] font-extrabold uppercase px-2 sm:px-2.5 py-0.5 rounded-full shadow-md">
             ${defaultPlan.pricePKR}
           </div>
         </div>
 
         <!-- Glass Footer -->
         <div class="card-glass-footer">
-          <div class="w-9 h-9 rounded-xl p-1.5 shadow-sm shrink-0 flex items-center justify-center" style="background-color: ${p.accentColor}15;">
+          <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-xl p-1.5 shadow-sm shrink-0 flex items-center justify-center" style="background-color: ${p.accentColor}15;">
             ${p.iconSvg}
           </div>
           <div class="min-w-0 flex-1">
-            <h4 class="font-extrabold text-dark text-sm truncate m-0 leading-tight group-hover:text-primary transition-colors font-heading">
+            <h4 class="font-extrabold text-dark text-xs sm:text-sm truncate m-0 leading-tight group-hover:text-primary transition-colors font-heading">
               ${p.name}
             </h4>
-            <p class="text-xs font-semibold text-primary mt-0.5 truncate">
+            <p class="text-[11px] sm:text-xs font-semibold text-primary mt-0.5 truncate">
               ${p.categoryLabel} &bull; ${p.duration}
             </p>
           </div>
@@ -148,7 +148,7 @@ function initCuratedCollections() {
                 ${cp.iconSvg}
               </div>
             `).join("")}
-            <span class="text-xs font-extrabold text-white ml-1 drop-shadow-sm font-heading">
+            <span class="text-xs font-extrabold text-white ml-1 drop-shadow-sm font-heading hidden sm:inline-block">
               +Bundle Free
             </span>
           </div>

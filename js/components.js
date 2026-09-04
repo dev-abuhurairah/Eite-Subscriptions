@@ -36,20 +36,18 @@ function renderLiteNavbar() {
       <div class="max-w-gp mx-auto px-4 md:px-6 relative header-container">
         
         <!-- Default Header Bar -->
-        <div id="header-default" class="flex items-center gap-2 w-full transition-all duration-200 ease-out">
+        <div id="header-default" class="flex items-center gap-1.5 sm:gap-2 w-full transition-all duration-200 ease-out">
           <!-- Mobile Drawer Hamburger -->
-          <button id="menuToggle" class="md:hidden w-10 h-10 flex items-center justify-center rounded-full hover:bg-slate-100 text-[#5f6368] transition-colors" aria-label="Open menu">
-            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+          <button id="menuToggle" class="md:hidden w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-full hover:bg-slate-100 text-[#5f6368] transition-colors shrink-0" aria-label="Open menu">
+            <svg class="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="currentColor"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
           </button>
 
           <!-- Brand Logo -->
-          <a href="index.html" class="flex items-center gap-2.5 shrink-0 no-underline mr-3">
-            <div class="w-9 h-9 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center justify-center text-primary shadow-sm">
-              <svg class="w-5 h-5 text-primary" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-            </div>
-            <div>
-              <h1 class="brand-title">ELITE SUBSCRIPTIONS</h1>
-              <span class="text-[9.5px] font-extrabold uppercase tracking-wider text-gray-3 block">OFFICIAL SUBSCRIPTIONS</span>
+          <a href="index.html" class="flex items-center gap-2 sm:gap-2.5 shrink min-w-0 no-underline mr-1 sm:mr-3 group">
+            <img src="assets/logo-icon.png" alt="ELite Subscriptions" class="w-8 h-8 sm:w-9 sm:h-9 rounded-xl object-cover shadow-sm ring-1 ring-indigo-500/20 group-hover:scale-105 transition-transform duration-200 shrink-0">
+            <div class="min-w-0">
+              <h1 class="brand-title truncate">ELITE SUBSCRIPTIONS</h1>
+              <span class="text-[8px] sm:text-[9.5px] font-extrabold uppercase tracking-wider text-indigo-500 block truncate">OFFICIAL SUBSCRIPTIONS</span>
             </div>
           </a>
 
@@ -83,14 +81,14 @@ function renderLiteNavbar() {
           </nav>
 
           <!-- Right Controls -->
-          <div class="flex items-center gap-2.5 ml-auto">
+          <div class="flex items-center gap-1.5 sm:gap-2.5 ml-auto shrink-0">
             <!-- Search Trigger Button -->
-            <button id="searchToggle" class="w-9 h-9 flex items-center justify-center rounded-full hover:bg-slate-100 text-[#5f6368] transition-colors border border-border" aria-label="Open search">
+            <button id="searchToggle" class="w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center rounded-full hover:bg-slate-100 text-[#5f6368] transition-colors border border-border shrink-0" aria-label="Open search">
               <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
             </button>
 
-            <!-- WhatsApp Store Button -->
-            <a href="https://wa.me/${STORE_CONFIG.phoneRaw}?text=${encodeURIComponent('Hi ELite Subscriptions, I would like to order an official subscription.')}" target="_blank" rel="noopener" class="btn-whatsapp-lite py-2 px-3.5 text-xs">
+            <!-- WhatsApp Store Button (Hidden on Mobile, Available in Bottom Nav) -->
+            <a href="https://wa.me/${STORE_CONFIG.phoneRaw}?text=${encodeURIComponent('Hi ELite Subscriptions, I would like to order an official subscription.')}" target="_blank" rel="noopener" class="btn-whatsapp-lite hidden sm:inline-flex py-2 px-3.5 text-xs">
               <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.599 2.679-.702c.97.53 1.77.822 2.78.822 3.18 0 5.767-2.587 5.768-5.766.001-3.182-2.585-5.806-5.767-5.806zm0 10.455c-.93 0-1.74-.26-2.45-.73l-.18-.11-1.82.48.49-1.77-.12-.19c-.53-.84-.81-1.71-.81-2.61 0-2.66 2.17-4.83 4.88-4.83 2.68 0 4.87 2.17 4.87 4.83 0 2.66-2.19 4.92-4.88 4.92zm2.66-3.66c-.15-.07-.86-.42-.99-.47-.14-.05-.24-.07-.34.07-.1.15-.38.47-.47.57-.09.1-.18.12-.32.05-.72-.36-1.39-.77-1.92-1.3-.43-.44-.72-.94-.85-1.16-.08-.14-.01-.22.06-.29.07-.07.15-.17.22-.25.07-.09.1-.15.15-.25.05-.1.02-.19-.01-.26-.03-.07-.34-.81-.46-1.12-.12-.29-.25-.26-.34-.26h-.29c-.1 0-.26.04-.4.19-.14.15-.53.52-.53 1.27s.55 1.47.62 1.57c.07.1 1.07 1.64 2.6 2.3 1.53.66 1.53.44 1.8.41.28-.03.88-.36 1-.71.13-.35.13-.65.09-.71-.04-.07-.14-.11-.28-.18z"/></svg>
               <span>WhatsApp Store</span>
             </a>
@@ -114,14 +112,17 @@ function renderLiteNavbar() {
     <!-- Mobile Sidebar Drawer & Overlay -->
     <div id="sidebarOverlay"></div>
     <nav id="sidebar" class="hide-sb">
-      <div class="flex items-center gap-3 px-6 py-5 border-b border-border">
-        <div class="w-8 h-8 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center justify-center text-primary">
-          <svg class="w-5 h-5 text-primary" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+      <div class="flex items-center justify-between px-5 py-4 border-b border-border">
+        <div class="flex items-center gap-2.5">
+          <img src="assets/logo-icon.png" alt="ELite Subscriptions" class="w-8 h-8 rounded-xl object-cover shadow-sm ring-1 ring-indigo-500/20">
+          <div>
+            <span class="text-sm font-extrabold text-dark block leading-none font-heading">ELITE SUBSCRIPTIONS</span>
+            <span class="text-[9px] font-bold text-indigo-500 uppercase tracking-wider">Subscriptions Store</span>
+          </div>
         </div>
-        <div>
-          <span class="text-base font-extrabold text-dark block leading-none font-heading">ELITE SUBSCRIPTIONS</span>
-          <span class="text-[9.5px] font-bold text-gray-3 uppercase tracking-wider">Subscriptions Store</span>
-        </div>
+        <button id="sidebarClose" type="button" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-slate-100 text-slate-500 transition-colors" aria-label="Close menu">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
       </div>
       <div class="py-3">
         <a class="sidebar-menu-item ${isHome ? 'menu-active' : ''}" href="index.html">
@@ -211,9 +212,11 @@ function renderLiteFooter() {
         
         <div class="grid grid-cols-2 md:grid-cols-4 gap-8 pb-8">
           <div>
-            <h4 class="text-[13px] font-extrabold text-dark uppercase tracking-wider mb-3 font-heading">About Store</h4>
+            <div class="flex items-center gap-2.5 mb-3">
+              <img src="assets/logo-icon.png" alt="ELite Subscriptions" class="w-7 h-7 rounded-lg object-cover shadow-sm ring-1 ring-indigo-500/20">
+              <span class="font-extrabold text-dark font-heading text-sm">${STORE_CONFIG.storeName}</span>
+            </div>
             <div class="flex flex-col gap-2 text-xs text-gray font-medium">
-              <span class="font-bold text-dark font-heading">${STORE_CONFIG.storeName}</span>
               <p class="leading-relaxed">Leading direct provider of cheap official premium digital tools, AI models, and streaming accounts.</p>
               <span class="text-primary font-bold">⚡ 5 - 15 Min Instant Activation</span>
             </div>
@@ -306,6 +309,8 @@ function setupSearchAndSidebarEvents() {
     });
   }
 
+  const sidebarClose = document.getElementById("sidebarClose");
+
   const openSidebar = () => {
     if (sidebar) sidebar.classList.add("active");
     if (sidebarOverlay) sidebarOverlay.classList.add("active");
@@ -319,7 +324,15 @@ function setupSearchAndSidebarEvents() {
   };
 
   if (menuToggle) menuToggle.addEventListener("click", openSidebar);
+  if (sidebarClose) sidebarClose.addEventListener("click", closeSidebar);
   if (sidebarOverlay) sidebarOverlay.addEventListener("click", closeSidebar);
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      closeSidebar();
+      if (headerSearch) headerSearch.classList.remove("active");
+    }
+  });
 }
 
 /**
@@ -350,25 +363,25 @@ let currentSelectedPlan = null;
 function setupOrderModal() {
   const modalHTML = `
     <div id="order-modal" class="modal-backdrop">
-      <div class="modal-content p-5 sm:p-7">
+      <div class="modal-content p-4 sm:p-7">
         
         <!-- Modal Top Title -->
-        <div class="flex items-start justify-between pb-4 border-b border-border">
-          <div class="flex items-center gap-3.5">
-            <div id="modal-product-icon" class="w-12 h-12 rounded-2xl bg-gray-50 flex items-center justify-center p-2 shadow-sm shrink-0"></div>
-            <div>
-              <h3 id="modal-product-name" class="font-extrabold text-dark text-lg sm:text-xl leading-tight font-heading">Product Title</h3>
+        <div class="flex items-start justify-between pb-3 sm:pb-4 border-b border-border gap-2">
+          <div class="flex items-center gap-3 min-w-0">
+            <div id="modal-product-icon" class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-gray-50 flex items-center justify-center p-2 shadow-sm shrink-0"></div>
+            <div class="min-w-0">
+              <h3 id="modal-product-name" class="font-extrabold text-dark text-base sm:text-xl leading-tight font-heading truncate">Product Title</h3>
               <div class="flex items-center gap-2 mt-1 font-medium">
-                <span class="flex items-center gap-0.5 text-xs font-bold text-dark">
+                <span class="flex items-center gap-0.5 text-xs font-bold text-dark shrink-0">
                   <span id="modal-product-rating">5.0</span>
                   <svg class="w-3.5 h-3.5 text-star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                 </span>
                 <span class="text-xs text-gray-3">&bull;</span>
-                <span id="modal-product-type" class="text-xs font-semibold text-primary">Official Upgrade</span>
+                <span id="modal-product-type" class="text-xs font-semibold text-primary truncate">Official Upgrade</span>
               </div>
             </div>
           </div>
-          <button id="modal-close-btn" class="w-9 h-9 rounded-full flex items-center justify-center text-gray-3 hover:bg-slate-100 transition-colors" aria-label="Close modal">
+          <button id="modal-close-btn" class="w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center text-gray-3 hover:bg-slate-100 transition-colors shrink-0" aria-label="Close modal">
             <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
           </button>
         </div>
