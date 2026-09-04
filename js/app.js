@@ -1,82 +1,177 @@
 /**
- * Abu Hurairah Subscriptions - Application Logic
- * Powers dynamic product rendering, live search, category filtering, and sorting
+ * ELite Subscriptions - Application Logic
+ * Powers dynamic product rendering, LiteAPKs carousels, curated collections, search & filters
  */
 
 document.addEventListener("DOMContentLoaded", () => {
-  // If we are on the catalog page or home page with product grids
   initCatalog();
   initHomeFeatured();
+  initTrendingCarousel();
+  initCuratedCollections();
   initContactForm();
 });
 
 /**
- * Render a single minimalist product card
+ * Render a single LiteAPKs List Card (.app-list-card)
+ * Optimized to fit titles without ugly truncation
  */
 function createProductCardHTML(product) {
   const defaultPlan = product.plans ? product.plans[0] : { pricePKR: product.ourPricePKR, priceUSD: product.ourPriceUSD, duration: product.duration };
   const waDirectLink = getWhatsAppOrderLink(product, defaultPlan.duration);
 
   return `
-    <div class="minimal-card flex flex-col justify-between p-3 group relative bg-white" data-category="${product.category}" data-id="${product.id}">
+    <div class="app-list-card group" onclick="openOrderModal('${product.id}')" data-category="${product.category}" data-id="${product.id}">
       
-      <!-- Card Top: Badge & Icon -->
-      <div>
-        <div class="flex items-start justify-between gap-2 mb-2">
-          <div class="w-7 h-7 rounded-md bg-slate-50 border border-slate-100 flex items-center justify-center p-1 group-hover:scale-105 transition-transform shrink-0 [&_svg]:w-4 [&_svg]:h-4">
-            ${product.iconSvg}
-          </div>
-          <div class="flex items-center gap-1 flex-wrap justify-end">
-            ${product.badge ? `<span class="badge-pill text-[9px] py-0.5 px-1.5 font-semibold ${product.badgeClass}">${product.badge}</span>` : ''}
-          </div>
-        </div>
+      <!-- App Icon Thumb with Soft Subtle Background -->
+      <div class="app-card-thumb" style="background-color: ${product.accentColor}15;">
+        ${product.iconSvg}
+      </div>
 
-        <!-- Title & 1-Line Tagline -->
-        <h3 class="font-heading font-bold text-slate-900 text-xs sm:text-[13px] leading-snug group-hover:text-blue-600 transition-colors truncate" title="${product.name}">
+      <!-- App Details -->
+      <div class="app-card-details">
+        <h3 class="app-card-title" title="${product.fullName || product.name}">
           ${product.name}
         </h3>
-        <p class="text-[10px] text-slate-500 mt-0.5 line-clamp-1 leading-normal" title="${product.description}">
-          ${product.description}
-        </p>
-
-        <!-- Compact Inline Price Row -->
-        <div class="mt-2.5 pt-2 border-t border-slate-100 flex items-baseline justify-between">
-          <div>
-            <span class="text-xs sm:text-sm font-extrabold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200">${defaultPlan.pricePKR}</span>
-            <span class="text-[10px] text-slate-400 line-through ml-1">${product.officialPrice}</span>
+        
+        <div class="app-card-meta">
+          <div class="flex items-center gap-0.5 text-xs">
+            <span class="font-bold text-dark">${product.rating || '5.0'}</span>
+            <svg class="w-3 h-3 text-star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
           </div>
-          <span class="text-[9px] font-semibold text-blue-700 bg-blue-50 border border-blue-200/60 px-1.5 py-0.5 rounded">
-            ${defaultPlan.duration}
-          </span>
+          <span>&bull;</span>
+          <span class="truncate">${product.categoryLabel.split('&')[0].trim()}</span>
         </div>
 
-        <!-- Micro Feature Tags -->
-        <div class="mt-1.5 flex items-center justify-between text-[9px] text-slate-500 font-medium">
-          <span class="flex items-center gap-1 text-emerald-700 font-semibold">
-            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block"></span>
-            ${product.deliveryTime}
-          </span>
-          <span class="truncate max-w-[110px] text-slate-400">${product.accountType}</span>
+        <div class="app-card-badge">
+          ${product.duration} &bull; ${defaultPlan.pricePKR}
         </div>
       </div>
 
-      <!-- Card Bottom Actions -->
-      <div class="mt-2.5 pt-2 border-t border-slate-100 grid grid-cols-2 gap-1.5">
-        <button onclick="openOrderModal('${product.id}')" class="btn-secondary text-[10px] py-1 px-1.5 font-semibold text-center justify-center">
-          Plans (${product.plans ? product.plans.length : 1})
-        </button>
-        <a href="${waDirectLink}" target="_blank" rel="noopener" class="btn-whatsapp text-[10px] py-1 px-1.5 font-bold justify-center">
-          <svg class="w-2.5 h-2.5 shrink-0" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.599 2.679-.702c.97.53 1.77.822 2.78.822 3.18 0 5.767-2.587 5.768-5.766.001-3.182-2.585-5.806-5.767-5.806zm0 10.455c-.93 0-1.74-.26-2.45-.73l-.18-.11-1.82.48.49-1.77-.12-.19c-.53-.84-.81-1.71-.81-2.61 0-2.66 2.17-4.83 4.88-4.83 2.68 0 4.87 2.17 4.87 4.83 0 2.66-2.19 4.92-4.88 4.92zm2.66-3.66c-.15-.07-.86-.42-.99-.47-.14-.05-.24-.07-.34.07-.1.15-.38.47-.47.57-.09.1-.18.12-.32.05-.72-.36-1.39-.77-1.92-1.3-.43-.44-.72-.94-.85-1.16-.08-.14-.01-.22.06-.29.07-.07.15-.17.22-.25.07-.09.1-.15.15-.25.05-.1.02-.19-.01-.26-.03-.07-.34-.81-.46-1.12-.12-.29-.25-.26-.34-.26h-.29c-.1 0-.26.04-.4.19-.14.15-.53.52-.53 1.27s.55 1.47.62 1.57c.07.1 1.07 1.64 2.6 2.3 1.53.66 1.53.44 1.8.41.28-.03.88-.36 1-.71.13-.35.13-.65.09-.71-.04-.07-.14-.11-.28-.18z"/></svg>
-          Claim Free
-        </a>
-      </div>
+      <!-- Compact WhatsApp Order Button -->
+      <button 
+        type="button" 
+        class="btn-whatsapp-lite" 
+        onclick="event.stopPropagation(); window.open('${waDirectLink}', '_blank');"
+        title="Order on WhatsApp"
+      >
+        <svg class="w-3 h-3" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.599 2.679-.702c.97.53 1.77.822 2.78.822 3.18 0 5.767-2.587 5.768-5.766.001-3.182-2.585-5.806-5.767-5.806zm0 10.455c-.93 0-1.74-.26-2.45-.73l-.18-.11-1.82.48.49-1.77-.12-.19c-.53-.84-.81-1.71-.81-2.61 0-2.66 2.17-4.83 4.88-4.83 2.68 0 4.87 2.17 4.87 4.83 0 2.66-2.19 4.92-4.88 4.92z"/></svg>
+        <span>Order</span>
+      </button>
 
     </div>
   `;
 }
 
 /**
- * Initialize Catalog Page
+ * 1. Initialize Trending Snap Carousel with 100% Reliable Branded Artwork Banners
+ * (Zero broken images, instant rendering, high-tech aesthetic)
+ */
+function initTrendingCarousel() {
+  const carouselContainer = document.getElementById("trending-carousel");
+  if (!carouselContainer) return;
+
+  const trendingIds = ["chatgpt-plus", "netflix-premium", "claude-pro", "canva-pro", "gemini-advanced", "spotify-premium"];
+  const trendingProducts = trendingIds.map(id => getProductById(id)).filter(Boolean);
+
+  carouselContainer.innerHTML = trendingProducts.map(p => {
+    const defaultPlan = p.plans ? p.plans[0] : { pricePKR: p.ourPricePKR };
+    return `
+      <div class="snap-start snap-banner-card cursor-pointer group" onclick="openOrderModal('${p.id}')">
+        
+        <!-- Branded Artwork Banner Box -->
+        <div class="banner-cover-box" style="background: ${p.bannerGradient};">
+          <!-- Ambient Glow Circle -->
+          <div class="absolute -right-8 -bottom-8 w-36 h-36 rounded-full opacity-35 blur-2xl pointer-events-none" style="background-color: ${p.accentColor};"></div>
+          
+          <div class="relative z-10 flex flex-col items-center justify-center p-4 text-center">
+            <div class="w-14 h-14 rounded-2xl flex items-center justify-center shadow-lg mb-2.5 border border-white/20" style="background: rgba(255, 255, 255, 0.12); backdrop-filter: blur(8px);">
+              <div class="[&_svg]:w-8 [&_svg]:h-8 [&_svg]:text-white">
+                ${p.iconSvg}
+              </div>
+            </div>
+            <span class="text-white font-extrabold text-base tracking-tight drop-shadow-sm font-heading">
+              ${p.fullName || p.name}
+            </span>
+            <span class="text-[11px] text-white/80 font-semibold mt-0.5 drop-shadow-sm">
+              ${p.tagline || p.categoryLabel}
+            </span>
+          </div>
+
+          <!-- Top Free Promo Tag -->
+          <div class="absolute top-3 right-3 bg-primary text-white text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full shadow-md">
+            ${defaultPlan.pricePKR}
+          </div>
+        </div>
+
+        <!-- Glass Footer -->
+        <div class="card-glass-footer">
+          <div class="w-9 h-9 rounded-xl p-1.5 shadow-sm shrink-0 flex items-center justify-center" style="background-color: ${p.accentColor}15;">
+            ${p.iconSvg}
+          </div>
+          <div class="min-w-0 flex-1">
+            <h4 class="font-extrabold text-dark text-sm truncate m-0 leading-tight group-hover:text-primary transition-colors font-heading">
+              ${p.name}
+            </h4>
+            <p class="text-xs font-semibold text-primary mt-0.5 truncate">
+              ${p.categoryLabel} &bull; ${p.duration}
+            </p>
+          </div>
+        </div>
+
+      </div>
+    `;
+  }).join("");
+}
+
+/**
+ * 2. Initialize Curated Collections Grid with Branded CSS Meshes
+ */
+function initCuratedCollections() {
+  const container = document.getElementById("curated-collections-grid");
+  if (!container || typeof COLLECTIONS === "undefined") return;
+
+  container.innerHTML = COLLECTIONS.map(col => {
+    const colProducts = col.productIds.map(id => getProductById(id)).filter(Boolean);
+    
+    return `
+      <div class="collection-card group cursor-pointer" onclick="window.location.href='catalog.html?category=${col.category}'">
+        <div class="collection-bg-mesh" style="background: ${col.gradient};">
+          <div class="absolute -right-6 -bottom-6 w-32 h-32 rounded-full opacity-35 blur-xl pointer-events-none" style="background-color: ${col.accent};"></div>
+        </div>
+        
+        <div class="collection-content">
+          <h4 class="collection-title">${col.title}</h4>
+          
+          <div class="collection-icons">
+            ${colProducts.map(cp => `
+              <div class="collection-mini-icon" title="${cp.name}">
+                ${cp.iconSvg}
+              </div>
+            `).join("")}
+            <span class="text-xs font-extrabold text-white ml-1 drop-shadow-sm font-heading">
+              +Bundle Free
+            </span>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+
+/**
+ * 3. Initialize Home Page Featured Products Grid
+ */
+function initHomeFeatured() {
+  const featuredGrid = document.getElementById("home-featured-grid");
+  if (!featuredGrid) return;
+
+  // Show top 8 products
+  const featuredList = PRODUCTS.slice(0, 8);
+  featuredGrid.innerHTML = featuredList.map(createProductCardHTML).join('');
+}
+
+/**
+ * 4. Initialize Catalog Page (LiteAPKs Store Browse View)
  */
 function initCatalog() {
   const catalogGrid = document.getElementById("catalog-products-grid");
@@ -88,60 +183,61 @@ function initCatalog() {
   const productCountDisplay = document.getElementById("product-count-display");
   const noResultsState = document.getElementById("catalog-no-results");
 
-  // Read URL query params e.g. ?category=ai
+  // Read URL query params: category & search
   const urlParams = new URLSearchParams(window.location.search);
   let activeCategory = urlParams.get("category") || "all";
-  let searchQuery = "";
+  let searchQuery = urlParams.get("search") || "";
   let currentSort = "featured";
+
+  if (searchInput && searchQuery) {
+    searchInput.value = searchQuery;
+  }
 
   // Render Category Filter Pills
   if (categoryTabsContainer) {
     categoryTabsContainer.innerHTML = CATEGORIES.map(cat => `
-      <button type="button" class="filter-tab ${cat.id === activeCategory ? 'active' : ''}" data-category="${cat.id}">
+      <button type="button" class="tab-pill ${cat.id === activeCategory ? 'active' : ''}" data-category="${cat.id}">
         ${cat.label}
       </button>
     `).join('');
 
     categoryTabsContainer.addEventListener("click", (e) => {
-      const btn = e.target.closest(".filter-tab");
+      const btn = e.target.closest(".tab-pill");
       if (!btn) return;
-      categoryTabsContainer.querySelectorAll(".filter-tab").forEach(t => t.classList.remove("active"));
+      categoryTabsContainer.querySelectorAll(".tab-pill").forEach(t => t.classList.remove("active"));
       btn.classList.add("active");
       activeCategory = btn.dataset.category;
       
-      // Update browser URL without reload
-      const newUrl = activeCategory === "all" ? "catalog.html" : `catalog.html?category=${activeCategory}`;
-      window.history.replaceState({}, "", newUrl);
+      const params = new URLSearchParams(window.location.search);
+      if (activeCategory === "all") {
+        params.delete("category");
+      } else {
+        params.set("category", activeCategory);
+      }
+      const newQuery = params.toString() ? `?${params.toString()}` : "catalog.html";
+      window.history.replaceState({}, "", newQuery);
 
       filterAndRender();
     });
   }
 
-  // Filter & Sorting function
+  // Filter & Sort Products
   function filterAndRender() {
     let filtered = PRODUCTS.filter(product => {
       const matchesCategory = (activeCategory === "all" || product.category === activeCategory);
       const q = searchQuery.toLowerCase().trim();
       const matchesSearch = !q || 
         product.name.toLowerCase().includes(q) || 
+        (product.fullName && product.fullName.toLowerCase().includes(q)) ||
         product.description.toLowerCase().includes(q) ||
         product.features.some(f => f.toLowerCase().includes(q));
       return matchesCategory && matchesSearch;
     });
 
-    // Sort
-    if (currentSort === "price-low") {
-      filtered.sort((a, b) => {
-        const pA = parseInt(a.ourPricePKR.replace(/\D/g, '')) || 0;
-        const pB = parseInt(b.ourPricePKR.replace(/\D/g, '')) || 0;
-        return pA - pB;
-      });
-    } else if (currentSort === "price-high") {
-      filtered.sort((a, b) => {
-        const pA = parseInt(a.ourPricePKR.replace(/\D/g, '')) || 0;
-        const pB = parseInt(b.ourPricePKR.replace(/\D/g, '')) || 0;
-        return pB - pA;
-      });
+    if (currentSort === "rating") {
+      filtered.sort((a, b) => (parseFloat(b.rating || 5.0) - parseFloat(a.rating || 5.0)));
+    } else if (currentSort === "name") {
+      filtered.sort((a, b) => a.name.localeCompare(b.name));
     }
 
     if (productCountDisplay) {
@@ -157,7 +253,7 @@ function initCatalog() {
     }
   }
 
-  // Search input handler
+  // Search input listener
   if (searchInput) {
     searchInput.addEventListener("input", (e) => {
       searchQuery = e.target.value;
@@ -165,7 +261,7 @@ function initCatalog() {
     });
   }
 
-  // Sort select handler
+  // Sort select listener
   if (sortSelect) {
     sortSelect.addEventListener("change", (e) => {
       currentSort = e.target.value;
@@ -178,19 +274,7 @@ function initCatalog() {
 }
 
 /**
- * Initialize Home Page Featured Grid
- */
-function initHomeFeatured() {
-  const featuredGrid = document.getElementById("home-featured-grid");
-  if (!featuredGrid) return;
-
-  // Take top 8 popular subscriptions for 4-column balanced grid
-  const featuredList = PRODUCTS.slice(0, 8);
-  featuredGrid.innerHTML = featuredList.map(createProductCardHTML).join('');
-}
-
-/**
- * Initialize Contact Page Form
+ * 5. Initialize Quick WhatsApp Support Form
  */
 function initContactForm() {
   const form = document.getElementById("quick-contact-form");
@@ -202,9 +286,8 @@ function initContactForm() {
     const service = document.getElementById("contact-service").value.trim();
     const message = document.getElementById("contact-message").value.trim();
 
-    const formattedMessage = `Hello Abu Hurairah,\n\nName: ${name}\nInterested In: ${service || 'Official Subscriptions'}\nMessage: ${message}`;
+    const formattedMessage = `Hello ELite Subscriptions,\n\nName: ${name}\nInterested In: ${service || 'Official Subscriptions'}\nMessage: ${message}`;
     
-    // Redirect to WhatsApp with message
     window.open(`https://wa.me/${STORE_CONFIG.phoneRaw}?text=${encodeURIComponent(formattedMessage)}`, "_blank");
   });
 }

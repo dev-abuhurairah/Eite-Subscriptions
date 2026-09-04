@@ -1,14 +1,11 @@
 /**
- * Abu Hurairah Subscriptions - Centralized Products & Store Configuration
- * 
- * Developer Note:
- * You can easily modify, add, or remove subscriptions below.
- * Change prices, titles, features, or categories in this single file.
+ * ELite Subscriptions - Centralized Products & Store Configuration
  */
 
 const STORE_CONFIG = {
-  storeName: "Abu Hurairah Subscriptions",
-  ownerName: "Abu Hurairah",
+  storeName: "ELite Subscriptions",
+  brandName: "ELITE SUBSCRIPTIONS",
+  ownerName: "ELite Subscriptions",
   phoneDisplay: "+92 346 7922243",
   phoneRaw: "923467922243",
   email: "lordsyedabuhurairah@gmail.com",
@@ -19,14 +16,7 @@ const STORE_CONFIG = {
   logoUrl: "assets/logo-icon-transparent.png",
   fullLogoUrl: "assets/logo.jpg",
   isFreePromo: true,
-  promoText: "Special Promo: Everything is 100% FREE (Rs. 0)",
-  
-  // Mandatory Warning displayed on every page
-  mandatoryWarning: {
-    badge: "100% FREE",
-    message: "All subscriptions are 100% official and genuine. We do NOT offer any kind of refund once activated. Never purchase from unauthorized third parties — we will NEVER ask for your personal credentials, passwords, or OTPs.",
-    shortMessage: "100% Official Subscriptions • Strictly No Refunds • We Never Ask For Passwords Or Personal Credentials"
-  }
+  promoText: "Special Promo: Everything is 100% FREE (Rs. 0)"
 };
 
 const CATEGORIES = [
@@ -42,11 +32,17 @@ const CATEGORIES = [
 const PRODUCTS = [
   {
     id: "chatgpt-plus",
-    name: "ChatGPT Plus (GPT-4o)",
+    name: "ChatGPT Plus",
+    fullName: "ChatGPT Plus (GPT-4o)",
     category: "ai",
     categoryLabel: "AI & Smart Tools",
     badge: "100% FREE",
     badgeClass: "badge-green",
+    rating: "5.0",
+    ratingCount: "8.4K",
+    bannerGradient: "linear-gradient(135deg, #042f2e 0%, #064e3b 50%, #022c22 100%)",
+    accentColor: "#10b981",
+    tagline: "GPT-4o, Advanced Voice & Canvas",
     description: "Full access to GPT-4o, Advanced Voice, Canvas, and DALL-E 3 image generation.",
     officialPrice: "$20.00/mo",
     ourPricePKR: "FREE (Rs. 0)",
@@ -68,16 +64,22 @@ const PRODUCTS = [
       "Faster response times during peak hours",
       "100% Official Subscription Guarantee"
     ],
-    iconSvg: `<svg class="w-8 h-8 text-emerald-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 0 1 10 10c0 5.523-4.477 10-10 10S2 17.523 2 12a10 10 0 0 1 10-10z"/><path d="m9 12 2 2 4-4"/></svg>`
+    iconSvg: `<svg class="w-7 h-7 text-emerald-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 0 1 10 10c0 5.523-4.477 10-10 10S2 17.523 2 12a10 10 0 0 1 10-10z"/><path d="m9 12 2 2 4-4"/></svg>`
   },
   {
     id: "gemini-advanced",
-    name: "Google Gemini Advanced",
+    name: "Gemini Advanced",
+    fullName: "Google Gemini Advanced",
     category: "ai",
     categoryLabel: "AI & Smart Tools",
     badge: "100% FREE",
     badgeClass: "badge-green",
-    description: "Gemini 1.5 Pro with 1M-2M context window, integrated with Google One 2TB cloud storage.",
+    rating: "4.9",
+    ratingCount: "6.1K",
+    bannerGradient: "linear-gradient(135deg, #0b192c 0%, #1e1b4b 50%, #030712 100%)",
+    accentColor: "#3b82f6",
+    tagline: "Gemini 1.5 Pro with 2TB Google One",
+    description: "Gemini 1.5 Pro with 2M context window, integrated with Google One 2TB cloud storage.",
     officialPrice: "$19.99/mo",
     ourPricePKR: "FREE (Rs. 0)",
     ourPriceUSD: "$0.00",
@@ -97,15 +99,21 @@ const PRODUCTS = [
       "Python code execution in-browser",
       "Official Google subscription activation"
     ],
-    iconSvg: `<svg class="w-8 h-8 text-blue-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M2 12h20M4.93 4.93l14.14 14.14M4.93 19.07 19.07 4.93"/></svg>`
+    iconSvg: `<svg class="w-7 h-7 text-blue-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M2 12h20M4.93 4.93l14.14 14.14M4.93 19.07 19.07 4.93"/></svg>`
   },
   {
     id: "claude-pro",
-    name: "Anthropic Claude Pro",
+    name: "Claude Pro",
+    fullName: "Anthropic Claude Pro",
     category: "ai",
     categoryLabel: "AI & Smart Tools",
     badge: "100% FREE",
     badgeClass: "badge-green",
+    rating: "5.0",
+    ratingCount: "7.2K",
+    bannerGradient: "linear-gradient(135deg, #2d1810 0%, #451a03 50%, #1f0f08 100%)",
+    accentColor: "#f97316",
+    tagline: "Claude 3.5 Sonnet & Artifacts",
     description: "5x more usage of Claude 3.5 Sonnet, interactive Artifacts visualizer and early feature access.",
     officialPrice: "$20.00/mo",
     ourPricePKR: "FREE (Rs. 0)",
@@ -125,42 +133,55 @@ const PRODUCTS = [
       "Priority access during high-traffic periods",
       "Official Anthropic account"
     ],
-    iconSvg: `<svg class="w-8 h-8 text-amber-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/><path d="M12 8v8"/></svg>`
+    iconSvg: `<svg class="w-7 h-7 text-amber-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/><path d="M12 8v8"/></svg>`
   },
   {
-    id: "midjourney-standard",
-    name: "Midjourney AI",
-    category: "ai",
-    categoryLabel: "AI & Smart Tools",
+    id: "netflix-premium",
+    name: "Netflix 4K UHD",
+    fullName: "Netflix Premium 4K UHD",
+    category: "streaming",
+    categoryLabel: "Streaming & Movies",
     badge: "100% FREE",
     badgeClass: "badge-green",
-    description: "Industry standard photorealistic AI art generator with fast GPU generation hours.",
-    officialPrice: "$30.00/mo",
+    rating: "4.9",
+    ratingCount: "12.4K",
+    bannerGradient: "linear-gradient(135deg, #180305 0%, #450a0a 50%, #110204 100%)",
+    accentColor: "#ef4444",
+    tagline: "4K HDR & Spatial Audio",
+    description: "Watch movies & TV series in 4K Ultra HD + HDR with immersive Spatial Audio.",
+    officialPrice: "$22.99/mo",
     ourPricePKR: "FREE (Rs. 0)",
     ourPriceUSD: "$0.00",
     duration: "1 Month",
-    deliveryTime: "10 - 20 mins",
-    accountType: "Private / Discord Activated",
+    deliveryTime: "Instant (5 mins)",
+    accountType: "Private Profile with PIN",
     plans: [
       { duration: "1 Month", pricePKR: "FREE (Rs. 0)", priceUSD: "$0.00", save: "100% FREE" },
-      { duration: "3 Months", pricePKR: "FREE (Rs. 0)", priceUSD: "$0.00", save: "100% FREE" }
+      { duration: "3 Months", pricePKR: "FREE (Rs. 0)", priceUSD: "$0.00", save: "100% FREE" },
+      { duration: "6 Months", pricePKR: "FREE (Rs. 0)", priceUSD: "$0.00", save: "100% FREE" }
     ],
     features: [
-      "15 hours fast GPU generation",
-      "Unlimited relaxed generations",
-      "Commercial usage rights",
-      "General commercial terms",
-      "Access to web gallery & Discord bot"
+      "Ultra HD (4K) and HDR resolution",
+      "Spatial Audio support",
+      "Dedicated Private Profile with personal PIN",
+      "Works on Smart TV, Laptop, Mobile & Tablet",
+      "Official guarantee for the entire duration"
     ],
-    iconSvg: `<svg class="w-8 h-8 text-indigo-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.64 3.64-1.28-1.28a1.21 1.21 0 0 0-1.72 0L2.36 18.64a1.21 1.21 0 0 0 0 1.72l1.28 1.28a1.2 1.2 0 0 0 1.72 0L21.64 5.36a1.2 1.2 0 0 0 0-1.72Z"/><path d="m14 7 3 3"/></svg>`
+    iconSvg: `<svg class="w-7 h-7 text-red-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="15" x="2" y="7" rx="2" ry="2"/><polyline points="17 2 12 7 7 2"/></svg>`
   },
   {
     id: "canva-pro",
     name: "Canva Pro",
+    fullName: "Canva Pro (Magic Studio)",
     category: "design",
     categoryLabel: "Design & Creative",
     badge: "100% FREE",
     badgeClass: "badge-green",
+    rating: "4.9",
+    ratingCount: "9.8K",
+    bannerGradient: "linear-gradient(135deg, #082f49 0%, #2e1065 50%, #0f172a 100%)",
+    accentColor: "#06b6d4",
+    tagline: "100M+ Stock Assets & Magic AI",
     description: "100M+ stock assets, Magic Studio AI tools, brand kits, and 1-click background remover.",
     officialPrice: "$12.99/mo",
     ourPricePKR: "FREE (Rs. 0)",
@@ -181,43 +202,21 @@ const PRODUCTS = [
       "1TB Cloud Storage for your designs",
       "Upgraded directly on your own personal email"
     ],
-    iconSvg: `<svg class="w-8 h-8 text-cyan-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>`
-  },
-  {
-    id: "netflix-premium",
-    name: "Netflix Premium 4K UHD",
-    category: "streaming",
-    categoryLabel: "Streaming & Movies",
-    badge: "100% FREE",
-    badgeClass: "badge-green",
-    description: "Watch movies & TV series in 4K Ultra HD + HDR with immersive Spatial Audio.",
-    officialPrice: "$22.99/mo",
-    ourPricePKR: "FREE (Rs. 0)",
-    ourPriceUSD: "$0.00",
-    duration: "1 Month",
-    deliveryTime: "Instant (5 mins)",
-    accountType: "Private Profile with PIN",
-    plans: [
-      { duration: "1 Month", pricePKR: "FREE (Rs. 0)", priceUSD: "$0.00", save: "100% FREE" },
-      { duration: "3 Months", pricePKR: "FREE (Rs. 0)", priceUSD: "$0.00", save: "100% FREE" },
-      { duration: "6 Months", pricePKR: "FREE (Rs. 0)", priceUSD: "$0.00", save: "100% FREE" }
-    ],
-    features: [
-      "Ultra HD (4K) and HDR resolution",
-      "Spatial Audio support",
-      "Dedicated Private Profile with personal PIN",
-      "Works on Smart TV, Laptop, Mobile & Tablet",
-      "Official guarantee for the entire duration"
-    ],
-    iconSvg: `<svg class="w-8 h-8 text-red-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="15" x="2" y="7" rx="2" ry="2"/><polyline points="17 2 12 7 7 2"/></svg>`
+    iconSvg: `<svg class="w-7 h-7 text-cyan-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>`
   },
   {
     id: "spotify-premium",
     name: "Spotify Premium",
+    fullName: "Spotify Premium (Individual)",
     category: "streaming",
     categoryLabel: "Streaming & Movies",
     badge: "100% FREE",
     badgeClass: "badge-green",
+    rating: "4.8",
+    ratingCount: "11.2K",
+    bannerGradient: "linear-gradient(135deg, #022c22 0%, #064e3b 50%, #0f172a 100%)",
+    accentColor: "#10b981",
+    tagline: "Ad-Free & 320kbps Audio",
     description: "Unlimited ad-free music, offline listening, and high-fidelity 320kbps streaming audio.",
     officialPrice: "$10.99/mo",
     ourPricePKR: "FREE (Rs. 0)",
@@ -238,15 +237,21 @@ const PRODUCTS = [
       "Group sessions with friends",
       "Activated on your own existing Spotify account"
     ],
-    iconSvg: `<svg class="w-8 h-8 text-emerald-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 11.5c3.5-1 6.5-.5 8.5.5"/><path d="M7 14c4-1 8-.5 10 .5"/><path d="M9 9c3-1 6-1 7.5-.5"/></svg>`
+    iconSvg: `<svg class="w-7 h-7 text-emerald-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 11.5c3.5-1 6.5-.5 8.5.5"/><path d="M7 14c4-1 8-.5 10 .5"/><path d="M9 9c3-1 6-1 7.5-.5"/></svg>`
   },
   {
     id: "youtube-premium",
     name: "YouTube Premium",
+    fullName: "YouTube Premium & Music",
     category: "streaming",
     categoryLabel: "Streaming & Movies",
     badge: "100% FREE",
     badgeClass: "badge-green",
+    rating: "4.9",
+    ratingCount: "8.7K",
+    bannerGradient: "linear-gradient(135deg, #450a0a 0%, #1f0808 50%, #0f172a 100%)",
+    accentColor: "#ef4444",
+    tagline: "Ad-Free, Background Play & YT Music",
     description: "Ad-free YouTube videos, background playback on mobile, and YouTube Music Premium included.",
     officialPrice: "$13.99/mo",
     ourPricePKR: "FREE (Rs. 0)",
@@ -267,15 +272,21 @@ const PRODUCTS = [
       "YouTube Music Premium app included",
       "Upgraded directly on your personal Gmail"
     ],
-    iconSvg: `<svg class="w-8 h-8 text-red-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/><polygon points="10 15 15 12 10 9 10 15"/></svg>`
+    iconSvg: `<svg class="w-7 h-7 text-red-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/><polygon points="10 15 15 12 10 9 10 15"/></svg>`
   },
   {
     id: "github-copilot",
     name: "GitHub Copilot",
+    fullName: "GitHub Copilot Individual",
     category: "dev",
     categoryLabel: "Developer Tools",
     badge: "100% FREE",
     badgeClass: "badge-green",
+    rating: "4.8",
+    ratingCount: "5.3K",
+    bannerGradient: "linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #020617 100%)",
+    accentColor: "#818cf8",
+    tagline: "Your AI Pair Programmer",
     description: "AI pair programmer supporting VS Code, JetBrains, and Neovim with inline completions and chat.",
     officialPrice: "$10.00/mo",
     ourPricePKR: "FREE (Rs. 0)",
@@ -295,15 +306,21 @@ const PRODUCTS = [
       "Pull request summaries & code review assistance",
       "Official GitHub subscription"
     ],
-    iconSvg: `<svg class="w-8 h-8 text-slate-800" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 16 4-4-4-4"/><path d="m6 8-4 4 4 4"/><path d="m14.5 4-5 16"/></svg>`
+    iconSvg: `<svg class="w-7 h-7 text-slate-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 16 4-4-4-4"/><path d="m6 8-4 4 4 4"/><path d="m14.5 4-5 16"/></svg>`
   },
   {
     id: "cursor-ai-pro",
     name: "Cursor AI Pro",
+    fullName: "Cursor AI Pro Code Editor",
     category: "dev",
     categoryLabel: "Developer Tools",
     badge: "100% FREE",
     badgeClass: "badge-green",
+    rating: "5.0",
+    ratingCount: "4.6K",
+    bannerGradient: "linear-gradient(135deg, #042f2e 0%, #0f172a 50%, #020617 100%)",
+    accentColor: "#22d3ee",
+    tagline: "Next-Gen AI Code Editor",
     description: "Next-gen AI code editor with unlimited fast completions, Claude 3.5 Sonnet & GPT-4o codebase search.",
     officialPrice: "$20.00/mo",
     ourPricePKR: "FREE (Rs. 0)",
@@ -322,15 +339,21 @@ const PRODUCTS = [
       "Multi-file edit with Composer",
       "Full repo indexing & natural language editing"
     ],
-    iconSvg: `<svg class="w-8 h-8 text-cyan-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 3 21 12 12 14 9 21 3 3"/></svg>`
+    iconSvg: `<svg class="w-7 h-7 text-cyan-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 3 21 12 12 14 9 21 3 3"/></svg>`
   },
   {
     id: "adobe-creative-cloud",
-    name: "Adobe Creative Cloud All Apps",
+    name: "Adobe Cloud",
+    fullName: "Adobe Creative Cloud All Apps",
     category: "design",
     categoryLabel: "Design & Creative",
     badge: "100% FREE",
     badgeClass: "badge-green",
+    rating: "4.9",
+    ratingCount: "7.9K",
+    bannerGradient: "linear-gradient(135deg, #450a0a 0%, #2b0606 50%, #0f172a 100%)",
+    accentColor: "#f43f5e",
+    tagline: "Photoshop, Premiere, Firefly AI",
     description: "20+ creative apps including Photoshop, Illustrator, Premiere Pro, After Effects, and Adobe Firefly.",
     officialPrice: "$59.99/mo",
     ourPricePKR: "FREE (Rs. 0)",
@@ -350,15 +373,21 @@ const PRODUCTS = [
       "Adobe Fonts library & Behance Pro",
       "Upgraded directly onto your official Adobe account"
     ],
-    iconSvg: `<svg class="w-8 h-8 text-red-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 22h20L12 2Z"/><path d="m7.5 13 4.5-9 4.5 9"/></svg>`
+    iconSvg: `<svg class="w-7 h-7 text-red-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 22h20L12 2Z"/><path d="m7.5 13 4.5-9 4.5 9"/></svg>`
   },
   {
     id: "nord-vpn",
-    name: "NordVPN Premium",
+    name: "NordVPN Pro",
+    fullName: "NordVPN Premium (10 Devices)",
     category: "security",
     categoryLabel: "VPN & Security",
     badge: "100% FREE",
     badgeClass: "badge-green",
+    rating: "4.8",
+    ratingCount: "9.1K",
+    bannerGradient: "linear-gradient(135deg, #172554 0%, #0f172a 50%, #020617 100%)",
+    accentColor: "#3b82f6",
+    tagline: "6000+ Servers & Threat Protection",
     description: "Ultra-fast VPN with 6000+ servers in 111 countries, Threat Protection, and 10 simultaneous devices.",
     officialPrice: "$12.99/mo",
     ourPricePKR: "FREE (Rs. 0)",
@@ -378,7 +407,43 @@ const PRODUCTS = [
       "Strict No-Logs policy verified by audit",
       "Works on PC, Mac, Android, iOS & Router"
     ],
-    iconSvg: `<svg class="w-8 h-8 text-blue-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`
+    iconSvg: `<svg class="w-7 h-7 text-blue-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`
+  }
+];
+
+// Curated Bundles matching LiteAPKs "Must have collection"
+const COLLECTIONS = [
+  {
+    id: "ai-powerhouse",
+    title: "AI Powerhouse Suite",
+    category: "ai",
+    gradient: "linear-gradient(135deg, #064e3b 0%, #022c22 100%)",
+    accent: "#10b981",
+    productIds: ["chatgpt-plus", "claude-pro", "gemini-advanced"]
+  },
+  {
+    id: "ultimate-entertainment",
+    title: "Ultimate 4K Streaming",
+    category: "streaming",
+    gradient: "linear-gradient(135deg, #7c2d12 0%, #431407 100%)",
+    accent: "#ea580c",
+    productIds: ["netflix-premium", "spotify-premium", "youtube-premium"]
+  },
+  {
+    id: "developer-toolkit",
+    title: "Elite Developer Toolkit",
+    category: "dev",
+    gradient: "linear-gradient(135deg, #1e1b4b 0%, #0f172a 100%)",
+    accent: "#6366f1",
+    productIds: ["cursor-ai-pro", "github-copilot", "chatgpt-plus"]
+  },
+  {
+    id: "creative-studio",
+    title: "Pro Design Studio",
+    category: "design",
+    gradient: "linear-gradient(135deg, #581c87 0%, #2e1065 100%)",
+    accent: "#a855f7",
+    productIds: ["adobe-creative-cloud", "canva-pro", "gemini-advanced"]
   }
 ];
 
@@ -390,15 +455,14 @@ function getProductById(id) {
 // Generate direct WhatsApp link for ordering
 function getWhatsAppOrderLink(product, planDuration) {
   const chosenPlan = product.plans ? product.plans.find(p => p.duration === planDuration) : null;
-  const priceInfo = chosenPlan ? `${chosenPlan.pricePKR} (${chosenPlan.priceUSD})` : product.ourPricePKR;
   const duration = planDuration || product.duration;
   
   const text = encodeURIComponent(
-    `Hello Abu Hurairah,\n\nI want to claim the following FREE official subscription promo:\n` +
-    `• Service: ${product.name}\n` +
-    `• Plan: ${duration}\n` +
-    `• Price: 100% FREE (Rs. 0)\n\n` +
-    `Please activate my free access. Thank you!`
+    `Hello ELite Subscriptions,\n\nI want to claim the following official subscription:\n` +
+    `• Service: ${product.fullName || product.name}\n` +
+    `• Plan Duration: ${duration}\n` +
+    `• Status: 100% FREE PROMO (Rs. 0)\n\n` +
+    `Please activate my account. Thank you!`
   );
   
   return `https://wa.me/${STORE_CONFIG.phoneRaw}?text=${text}`;
@@ -406,6 +470,6 @@ function getWhatsAppOrderLink(product, planDuration) {
 
 // Generate general WhatsApp inquiry link
 function getWhatsAppGeneralLink(customMessage) {
-  const msg = customMessage || `Hello Abu Hurairah, I would like to inquire about your official subscription services.`;
+  const msg = customMessage || `Hello ELite Subscriptions, I would like to inquire about your official subscription services.`;
   return `https://wa.me/${STORE_CONFIG.phoneRaw}?text=${encodeURIComponent(msg)}`;
 }

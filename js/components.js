@@ -1,231 +1,267 @@
 /**
- * Universal Components for Abu Hurairah Subscriptions
- * Injects Navigation, Persistent Warning Banners, Footer, and Floating WhatsApp
+ * ELite Subscriptions - Universal Components
+ * LiteAPKs Navigation, Mobile Drawer, Mobile Bottom Nav, Clean Footer & Order Modal
  */
 
 document.addEventListener("DOMContentLoaded", () => {
-  renderUniversalWarningBanner();
-  renderUniversalNavbar();
-  renderUniversalFooter();
+  renderLiteNavbar();
+  renderLiteBottomNav();
+  renderLiteFooter();
   renderFloatingWhatsApp();
   setupOrderModal();
+  setupSearchAndSidebarEvents();
 });
 
 /**
- * 1. Persistent Top Warning Banner (Mandatory on Every Page)
+ * 1. LiteAPKs Header with Clean Icon Alignment & Expandable Search
  */
-function renderUniversalWarningBanner() {
-  const container = document.getElementById("universal-warning-banner");
-  if (!container) return;
-  container.innerHTML = ""; // Warning banner removed from top per user request
-}
-
-/**
- * 2. Universal Navigation Bar
- */
-function renderUniversalNavbar() {
+function renderLiteNavbar() {
   const container = document.getElementById("universal-navbar");
   if (!container) return;
 
-  const currentPath = window.location.pathname.toLowerCase();
-  
-  const isHome = currentPath.endsWith("index.html") || currentPath === "/" || currentPath.endsWith("/abu-hurairah-subscriptions/") || currentPath.endsWith("/abu-hurairah-subscriptions");
-  const isCatalog = currentPath.endsWith("catalog.html");
-  const isHowItWorks = currentPath.endsWith("how-it-works.html");
-  const isPolicy = currentPath.endsWith("policy.html");
-  const isContact = currentPath.endsWith("contact.html");
+  const currentPath = (window.location.pathname || "").toLowerCase();
+  const currentSearch = (window.location.search || "").toLowerCase();
+
+  const isAi = currentSearch.includes("ai");
+  const isCatalog = currentPath.includes("catalog.html") && !isAi;
+  const isGuide = currentPath.includes("how-it-works.html");
+  const isHowItWorks = isGuide;
+  const isPolicy = currentPath.includes("policy.html");
+  const isContact = currentPath.includes("contact.html");
+  const isHome = !isCatalog && !isAi && !isGuide && !isPolicy && !isContact;
 
   container.innerHTML = `
-    <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm transition-all duration-200">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex items-center justify-between h-14">
-          
-          <!-- Logo & Brand -->
-          <a href="index.html" class="flex items-center gap-2.5 group text-decoration-none py-1">
-            <img src="assets/logo-icon-transparent.png" alt="Abu Hurairah Subscriptions Logo" class="h-8 sm:h-9 w-auto object-contain group-hover:scale-105 transition-transform shrink-0" />
+    <!-- Main Sticky Header -->
+    <header class="site-header">
+      <div class="max-w-gp mx-auto px-4 md:px-6 relative header-container">
+        
+        <!-- Default Header Bar -->
+        <div id="header-default" class="flex items-center gap-2 w-full transition-all duration-200 ease-out">
+          <!-- Mobile Drawer Hamburger -->
+          <button id="menuToggle" class="md:hidden w-10 h-10 flex items-center justify-center rounded-full hover:bg-slate-100 text-[#5f6368] transition-colors" aria-label="Open menu">
+            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+          </button>
+
+          <!-- Brand Logo -->
+          <a href="index.html" class="flex items-center gap-2.5 shrink-0 no-underline mr-3">
+            <div class="w-9 h-9 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center justify-center text-primary shadow-sm">
+              <svg class="w-5 h-5 text-primary" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+            </div>
             <div>
-              <div class="font-heading font-bold text-slate-900 text-sm sm:text-base leading-tight flex items-center gap-1.5">
-                Abu Hurairah
-                <span class="inline-flex items-center text-[9px] uppercase font-bold tracking-wider px-1.5 py-0.2 rounded bg-emerald-50 text-emerald-700 border border-emerald-200">Official</span>
-              </div>
-              <p class="text-[11px] text-slate-500 font-medium leading-tight">Authentic Subscriptions</p>
+              <h1 class="brand-title">ELITE SUBSCRIPTIONS</h1>
+              <span class="text-[9.5px] font-extrabold uppercase tracking-wider text-gray-3 block">OFFICIAL SUBSCRIPTIONS</span>
             </div>
           </a>
 
-          <!-- Desktop Navigation -->
-          <nav class="hidden md:flex items-center gap-1 text-xs">
-            <a href="index.html" class="px-3 py-1.5 rounded-lg font-semibold transition-colors ${isHome ? 'bg-slate-100 text-slate-900' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'}">Home</a>
-            <a href="catalog.html" class="px-3 py-1.5 rounded-lg font-semibold transition-colors ${isCatalog ? 'bg-slate-100 text-slate-900' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'}">All Subscriptions</a>
-            <a href="how-it-works.html" class="px-3 py-1.5 rounded-lg font-semibold transition-colors ${isHowItWorks ? 'bg-slate-100 text-slate-900' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'}">How It Works</a>
-            <a href="policy.html" class="px-3 py-1.5 rounded-lg font-semibold transition-colors ${isPolicy ? 'bg-slate-100 text-slate-900' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'}">Policy</a>
-            <a href="contact.html" class="px-3 py-1.5 rounded-lg font-semibold transition-colors ${isContact ? 'bg-slate-100 text-slate-900' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'}">Contact</a>
+          <!-- Desktop Navigation with Uniform Crisp SVG Icons -->
+          <nav class="hidden md:flex items-center gap-1 ml-4 lg:ml-6">
+            <a href="index.html" class="nav-link-lite ${isHome ? 'active' : ''}">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+              <span>Home</span>
+            </a>
+            <a href="catalog.html" class="nav-link-lite ${isCatalog ? 'active' : ''}">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 8h4V4H4v4zm6 12h4v-4h-4v4zm-6 0h4v-4H4v4zm0-6h4v-4H4v4zm6 0h4v-4h-4v4zm6-10v4h4V4h-4zm-6 4h4V4h-4v4zm6 6h4v-4h-4v4zm0 6h4v-4h-4v4z"/></svg>
+              <span>Subscriptions</span>
+            </a>
+            <a href="catalog.html?cat=ai" class="nav-link-lite ${isAi ? 'active' : ''}">
+              <!-- Sleek AI Sparkles SVG -->
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="m19 9 1.25-2.75L23 5l-2.75-1.25L19 1l-1.25 2.75L15 5l2.75 1.25L19 9zm-7.5.5L9 4 6.5 9.5 1 12l5.5 2.5L9 20l2.5-5.5L17 12l-5.5-2.5zM19 15l-1.25 2.75L15 19l2.75 1.25L19 23l1.25-2.75L23 19l-2.75-1.25L19 15z"/></svg>
+              <span>AI Tools</span>
+            </a>
+            <a href="how-it-works.html" class="nav-link-lite ${isGuide ? 'active' : ''}">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H7c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.04-.42 1.99-1.07 2.75z"/></svg>
+              <span>How It Works</span>
+            </a>
+            <a href="policy.html" class="nav-link-lite ${isPolicy ? 'active' : ''}">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+              <span>Policy</span>
+            </a>
+            <a href="contact.html" class="nav-link-lite ${isContact ? 'active' : ''}">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/></svg>
+              <span>Contact</span>
+            </a>
           </nav>
 
-          <!-- Action CTA & WhatsApp -->
-          <div class="hidden lg:flex items-center gap-2.5">
-            <a href="mailto:${STORE_CONFIG.email}" class="text-xs font-medium text-slate-500 hover:text-slate-800 transition-colors flex items-center gap-1">
-              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-              ${STORE_CONFIG.email}
-            </a>
-            <a href="https://wa.me/${STORE_CONFIG.phoneRaw}?text=${encodeURIComponent('Hi Abu Hurairah, I would like to buy a subscription.')}" target="_blank" rel="noopener" class="btn-whatsapp text-xs py-1.5 px-3">
-              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.599 2.679-.702c.97.53 1.77.822 2.78.822 3.18 0 5.767-2.587 5.768-5.766.001-3.182-2.585-5.806-5.767-5.806zm0 10.455c-.93 0-1.74-.26-2.45-.73l-.18-.11-1.82.48.49-1.77-.12-.19c-.53-.84-.81-1.71-.81-2.61 0-2.66 2.17-4.83 4.88-4.83 2.68 0 4.87 2.17 4.87 4.83 0 2.66-2.19 4.92-4.88 4.92zm2.66-3.66c-.15-.07-.86-.42-.99-.47-.14-.05-.24-.07-.34.07-.1.15-.38.47-.47.57-.09.1-.18.12-.32.05-.72-.36-1.39-.77-1.92-1.3-.43-.44-.72-.94-.85-1.16-.08-.14-.01-.22.06-.29.07-.07.15-.17.22-.25.07-.09.1-.15.15-.25.05-.1.02-.19-.01-.26-.03-.07-.34-.81-.46-1.12-.12-.29-.25-.26-.34-.26h-.29c-.1 0-.26.04-.4.19-.14.15-.53.52-.53 1.27s.55 1.47.62 1.57c.07.1 1.07 1.64 2.6 2.3 1.53.66 1.53.44 1.8.41.28-.03.88-.36 1-.71.13-.35.13-.65.09-.71-.04-.07-.14-.11-.28-.18z"/></svg>
-              Claim 100% Free on WhatsApp
-            </a>
-          </div>
-
-          <!-- Mobile Hamburger Toggle -->
-          <div class="flex items-center gap-2 md:hidden">
-            <a href="https://wa.me/${STORE_CONFIG.phoneRaw}" class="p-2 text-emerald-600 bg-emerald-50 rounded-lg" aria-label="WhatsApp">
-              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.599 2.679-.702c.97.53 1.77.822 2.78.822 3.18 0 5.767-2.587 5.768-5.766.001-3.182-2.585-5.806-5.767-5.806z"/></svg>
-            </a>
-            <button id="mobile-menu-btn" class="p-2 rounded-lg text-slate-700 hover:bg-slate-100 focus:outline-none" aria-label="Toggle Menu">
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+          <!-- Right Controls -->
+          <div class="flex items-center gap-2.5 ml-auto">
+            <!-- Search Trigger Button -->
+            <button id="searchToggle" class="w-9 h-9 flex items-center justify-center rounded-full hover:bg-slate-100 text-[#5f6368] transition-colors border border-border" aria-label="Open search">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
             </button>
-          </div>
 
-        </div>
-
-        <!-- Mobile Navigation Menu -->
-        <div id="mobile-menu" class="hidden md:hidden border-t border-slate-200 py-3 space-y-1">
-          <a href="index.html" class="block px-3 py-2 rounded-lg font-semibold text-sm ${isHome ? 'bg-slate-100 text-slate-900' : 'text-slate-600 hover:bg-slate-50'}">Home</a>
-          <a href="catalog.html" class="block px-3 py-2 rounded-lg font-semibold text-sm ${isCatalog ? 'bg-slate-100 text-slate-900' : 'text-slate-600 hover:bg-slate-50'}">All Subscriptions</a>
-          <a href="how-it-works.html" class="block px-3 py-2 rounded-lg font-semibold text-sm ${isHowItWorks ? 'bg-slate-100 text-slate-900' : 'text-slate-600 hover:bg-slate-50'}">How It Works</a>
-          <a href="policy.html" class="block px-3 py-2 rounded-lg font-semibold text-sm ${isPolicy ? 'bg-slate-100 text-slate-900' : 'text-slate-600 hover:bg-slate-50'}">Policy & Security Warning</a>
-          <a href="contact.html" class="block px-3 py-2 rounded-lg font-semibold text-sm ${isContact ? 'bg-slate-100 text-slate-900' : 'text-slate-600 hover:bg-slate-50'}">Contact</a>
-          <div class="pt-2 border-t border-slate-100 mt-2 space-y-2">
-            <a href="tel:${STORE_CONFIG.phoneRaw}" class="flex items-center gap-2 px-3 py-2 text-xs font-semibold text-slate-600">
-              <svg class="w-4 h-4 text-blue-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-              ${STORE_CONFIG.phoneDisplay}
-            </a>
-            <a href="mailto:${STORE_CONFIG.email}" class="flex items-center gap-2 px-3 py-2 text-xs font-semibold text-slate-600">
-              <svg class="w-4 h-4 text-blue-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-              ${STORE_CONFIG.email}
-            </a>
-            <a href="https://wa.me/${STORE_CONFIG.phoneRaw}?text=${encodeURIComponent('Hi Abu Hurairah, I would like to buy a subscription.')}" class="btn-whatsapp w-full text-center text-sm py-2.5">
-              Order via WhatsApp
+            <!-- WhatsApp Store Button -->
+            <a href="https://wa.me/${STORE_CONFIG.phoneRaw}?text=${encodeURIComponent('Hi ELite Subscriptions, I would like to order an official subscription.')}" target="_blank" rel="noopener" class="btn-whatsapp-lite py-2 px-3.5 text-xs">
+              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.599 2.679-.702c.97.53 1.77.822 2.78.822 3.18 0 5.767-2.587 5.768-5.766.001-3.182-2.585-5.806-5.767-5.806zm0 10.455c-.93 0-1.74-.26-2.45-.73l-.18-.11-1.82.48.49-1.77-.12-.19c-.53-.84-.81-1.71-.81-2.61 0-2.66 2.17-4.83 4.88-4.83 2.68 0 4.87 2.17 4.87 4.83 0 2.66-2.19 4.92-4.88 4.92zm2.66-3.66c-.15-.07-.86-.42-.99-.47-.14-.05-.24-.07-.34.07-.1.15-.38.47-.47.57-.09.1-.18.12-.32.05-.72-.36-1.39-.77-1.92-1.3-.43-.44-.72-.94-.85-1.16-.08-.14-.01-.22.06-.29.07-.07.15-.17.22-.25.07-.09.1-.15.15-.25.05-.1.02-.19-.01-.26-.03-.07-.34-.81-.46-1.12-.12-.29-.25-.26-.34-.26h-.29c-.1 0-.26.04-.4.19-.14.15-.53.52-.53 1.27s.55 1.47.62 1.57c.07.1 1.07 1.64 2.6 2.3 1.53.66 1.53.44 1.8.41.28-.03.88-.36 1-.71.13-.35.13-.65.09-.71-.04-.07-.14-.11-.28-.18z"/></svg>
+              <span>WhatsApp Store</span>
             </a>
           </div>
         </div>
+
+        <!-- Expandable Header Search Bar -->
+        <div id="header-search" role="search">
+          <div class="search-input-pill">
+            <svg class="w-4 h-4 text-gray-3 shrink-0" viewBox="0 0 24 24" fill="currentColor"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+            <input id="headerSearchInput" type="search" placeholder="Search official subscriptions (ChatGPT, Netflix, Claude, Canva)..." autocomplete="off">
+          </div>
+          <button id="searchClose" type="button" class="w-9 h-9 flex items-center justify-center rounded-full hover:bg-slate-100 text-[#5f6368] transition-colors" aria-label="Close search">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+          </button>
+        </div>
+
       </div>
     </header>
-  `;
 
-  // Mobile menu toggle event
-  const mobileMenuBtn = document.getElementById("mobile-menu-btn");
-  const mobileMenu = document.getElementById("mobile-menu");
-  if (mobileMenuBtn && mobileMenu) {
-    mobileMenuBtn.addEventListener("click", () => {
-      mobileMenu.classList.toggle("hidden");
-    });
-  }
+    <!-- Mobile Sidebar Drawer & Overlay -->
+    <div id="sidebarOverlay"></div>
+    <nav id="sidebar" class="hide-sb">
+      <div class="flex items-center gap-3 px-6 py-5 border-b border-border">
+        <div class="w-8 h-8 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center justify-center text-primary">
+          <svg class="w-5 h-5 text-primary" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        </div>
+        <div>
+          <span class="text-base font-extrabold text-dark block leading-none font-heading">ELITE SUBSCRIPTIONS</span>
+          <span class="text-[9.5px] font-bold text-gray-3 uppercase tracking-wider">Subscriptions Store</span>
+        </div>
+      </div>
+      <div class="py-3">
+        <a class="sidebar-menu-item ${isHome ? 'menu-active' : ''}" href="index.html">
+          <svg class="mr-3 w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+          Home
+        </a>
+        <a class="sidebar-menu-item ${isCatalog ? 'menu-active' : ''}" href="catalog.html">
+          <svg class="mr-3 w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M4 8h4V4H4v4zm6 12h4v-4h-4v4zm-6 0h4v-4H4v4zm0-6h4v-4H4v4zm6 0h4v-4h-4v4zm6-10v4h4V4h-4zm-6 4h4V4h-4v4zm6 6h4v-4h-4v4zm0 6h4v-4h-4v4z"/></svg>
+          All Subscriptions
+        </a>
+        <a class="sidebar-menu-item" href="catalog.html?category=ai">
+          <svg class="mr-3 w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M19 9l1.25-2.75L23 5l-2.75-1.25L19 1l-1.25 2.75L15 5l2.75 1.25L19 9zm-7.5.5L9 4 6.5 9.5 1 12l5.5 2.5L9 20l2.5-5.5L17 12l-5.5-2.5zM19 15l-1.25 2.75L15 19l2.75 1.25L19 23l1.25-2.75L23 19l-2.75-1.25L19 15z"/></svg>
+          AI Tools
+        </a>
+        <a class="sidebar-menu-item ${isHowItWorks ? 'menu-active' : ''}" href="how-it-works.html">
+          <svg class="mr-3 w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+          How It Works
+        </a>
+        <a class="sidebar-menu-item ${isPolicy ? 'menu-active' : ''}" href="policy.html">
+          <svg class="mr-3 w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+          Policy
+        </a>
+        <a class="sidebar-menu-item ${isContact ? 'menu-active' : ''}" href="contact.html">
+          <svg class="mr-3 w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/></svg>
+          Contact Support
+        </a>
+      </div>
+      <div class="px-6 pt-4 mt-6 border-t border-border">
+        <p class="text-xs font-bold text-gray-3 mb-2">DIRECT WHATSAPP</p>
+        <a href="https://wa.me/${STORE_CONFIG.phoneRaw}" target="_blank" rel="noopener" class="btn-install text-xs py-2.5 justify-center">
+          Chat: ${STORE_CONFIG.phoneDisplay}
+        </a>
+      </div>
+    </nav>
+  `;
 }
 
 /**
- * 3. Universal Footer (With Disclaimer & Contact)
+ * 2. Mobile Bottom Navigation Bar (LiteAPKs Style)
  */
-function renderUniversalFooter() {
+function renderLiteBottomNav() {
+  const existing = document.querySelector(".mobile-bottom-nav");
+  if (existing) return;
+
+  const currentPath = window.location.pathname.toLowerCase();
+  const isHome = currentPath.endsWith("index.html") || currentPath === "/" || currentPath.endsWith("/abu-hurairah-subscriptions/") || currentPath.endsWith("/abu-hurairah-subscriptions");
+  const isCatalog = currentPath.endsWith("catalog.html");
+  const isHowItWorks = currentPath.endsWith("how-it-works.html");
+
+  const bottomNav = document.createElement("nav");
+  bottomNav.className = "mobile-bottom-nav md:hidden";
+  bottomNav.innerHTML = `
+    <a href="index.html" class="mobile-nav-item ${isHome ? 'active' : ''}">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+      <span>Home</span>
+    </a>
+    <a href="catalog.html" class="mobile-nav-item ${isCatalog ? 'active' : ''}">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 8h4V4H4v4zm6 12h4v-4h-4v4zm-6 0h4v-4H4v4zm0-6h4v-4H4v4zm6 0h4v-4h-4v4zm6-10v4h4V4h-4zm-6 4h4V4h-4v4zm6 6h4v-4h-4v4zm0 6h4v-4h-4v4z"/></svg>
+      <span>Store</span>
+    </a>
+    <a href="catalog.html?category=ai" class="mobile-nav-item">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 9l1.25-2.75L23 5l-2.75-1.25L19 1l-1.25 2.75L15 5l2.75 1.25L19 9zm-7.5.5L9 4 6.5 9.5 1 12l5.5 2.5L9 20l2.5-5.5L17 12l-5.5-2.5zM19 15l-1.25 2.75L15 19l2.75 1.25L19 23l1.25-2.75L23 19l-2.75-1.25L19 15z"/></svg>
+      <span>AI Tools</span>
+    </a>
+    <a href="how-it-works.html" class="mobile-nav-item ${isHowItWorks ? 'active' : ''}">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+      <span>Guide</span>
+    </a>
+    <a href="https://wa.me/${STORE_CONFIG.phoneRaw}" target="_blank" rel="noopener" class="mobile-nav-item text-[#25D366]">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.599 2.679-.702c.97.53 1.77.822 2.78.822 3.18 0 5.767-2.587 5.768-5.766.001-3.182-2.585-5.806-5.767-5.806zm0 10.455c-.93 0-1.74-.26-2.45-.73l-.18-.11-1.82.48.49-1.77-.12-.19c-.53-.84-.81-1.71-.81-2.61 0-2.66 2.17-4.83 4.88-4.83 2.68 0 4.87 2.17 4.87 4.83 0 2.66-2.19 4.92-4.88 4.92z"/></svg>
+      <span>WhatsApp</span>
+    </a>
+  `;
+  document.body.appendChild(bottomNav);
+}
+
+/**
+ * 3. Clean LiteAPKs Universal Footer (Without the safety callout banner)
+ */
+function renderLiteFooter() {
   const container = document.getElementById("universal-footer");
   if (!container) return;
 
   container.innerHTML = `
-    <footer class="bg-white border-t border-slate-200 mt-auto pt-12 pb-8">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <footer class="border-t border-border pt-10 pb-8 mt-12 bg-white">
+      <div class="max-w-gp mx-auto px-4 md:px-6">
         
-        <!-- Crucial Notice Box inside Footer -->
-        <div class="bg-amber-50/70 border border-amber-200 rounded-xl p-4 sm:p-6 mb-12">
-          <div class="flex items-start gap-3">
-            <div class="w-8 h-8 rounded-lg bg-amber-100 text-amber-800 flex items-center justify-center shrink-0 mt-0.5">
-              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 pb-8">
+          <div>
+            <h4 class="text-[13px] font-extrabold text-dark uppercase tracking-wider mb-3 font-heading">About Store</h4>
+            <div class="flex flex-col gap-2 text-xs text-gray font-medium">
+              <span class="font-bold text-dark font-heading">${STORE_CONFIG.storeName}</span>
+              <p class="leading-relaxed">Leading direct provider of cheap official premium digital tools, AI models, and streaming accounts.</p>
+              <span class="text-primary font-bold">⚡ 5 - 15 Min Instant Activation</span>
             </div>
-            <div class="space-y-1">
-              <h4 class="text-sm font-bold text-amber-900 tracking-tight">Crucial Security & Guarantee Statement</h4>
-              <p class="text-xs sm:text-sm text-amber-800 leading-relaxed">
-                All subscriptions offered on this platform are 100% genuine and official services. 
-                <strong>Strictly No Refunds:</strong> Because digital activations and invites are processed and delivered directly upon purchase, we cannot offer any refunds or chargebacks once access is provisioned. 
-                <strong>Security Warning:</strong> Never purchase subscriptions from unverified third-party impersonators. Abu Hurairah will <u>never</u> ask for your private passwords, PINs, or confidential banking details.
-              </p>
+          </div>
+
+          <div>
+            <h4 class="text-[13px] font-extrabold text-dark uppercase tracking-wider mb-3 font-heading">Popular Categories</h4>
+            <div class="flex flex-col gap-2 text-xs text-gray font-medium">
+              <a class="no-underline hover:text-primary transition-colors" href="catalog.html?category=ai">AI & Smart Tools</a>
+              <a class="no-underline hover:text-primary transition-colors" href="catalog.html?category=streaming">Streaming & Movies</a>
+              <a class="no-underline hover:text-primary transition-colors" href="catalog.html?category=dev">Developer & Coding Tools</a>
+              <a class="no-underline hover:text-primary transition-colors" href="catalog.html?category=design">Design & Creative Suite</a>
+              <a class="no-underline hover:text-primary transition-colors" href="catalog.html?category=security">VPN & Security</a>
+            </div>
+          </div>
+
+          <div>
+            <h4 class="text-[13px] font-extrabold text-dark uppercase tracking-wider mb-3 font-heading">Help & Links</h4>
+            <div class="flex flex-col gap-2 text-xs text-gray font-medium">
+              <a class="no-underline hover:text-primary transition-colors" href="how-it-works.html">How Ordering Works</a>
+              <a class="no-underline hover:text-primary transition-colors" href="how-it-works.html#payment">Supported Payment Methods</a>
+              <a class="no-underline hover:text-primary transition-colors" href="policy.html">Terms & Policy</a>
+              <a class="no-underline hover:text-primary transition-colors" href="contact.html">Customer Support</a>
+            </div>
+          </div>
+
+          <div>
+            <h4 class="text-[13px] font-extrabold text-dark uppercase tracking-wider mb-3 font-heading">Direct Contact</h4>
+            <div class="flex flex-col gap-2 text-xs text-gray font-medium">
+              <div class="flex items-center gap-2">
+                <span class="font-bold text-dark">WhatsApp:</span>
+                <a href="https://wa.me/${STORE_CONFIG.phoneRaw}" class="text-primary font-extrabold no-underline hover:underline">${STORE_CONFIG.phoneDisplay}</a>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="font-bold text-dark">Email:</span>
+                <a href="mailto:${STORE_CONFIG.email}" class="text-gray-3 no-underline hover:text-dark truncate">${STORE_CONFIG.email}</a>
+              </div>
+              <p class="text-[11px] text-gray-3 mt-1">Orders confirmed directly by ELite Subscriptions Support with 24/7 responsiveness.</p>
             </div>
           </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 pb-10 border-b border-slate-200">
-          <!-- Brand & Bio -->
-          <div class="md:col-span-1 space-y-3">
-            <div class="flex items-center gap-2.5">
-              <img src="assets/logo-icon-transparent.png" alt="Abu Hurairah Subscriptions Logo" class="h-8 sm:h-9 w-auto object-contain shrink-0" />
-              <span class="font-heading font-bold text-slate-900 text-base sm:text-lg">Abu Hurairah</span>
-            </div>
-            <p class="text-xs sm:text-sm text-slate-500 leading-relaxed">
-              Trusted provider of cheap, official apps & tool subscriptions. Get premium access to ChatGPT, Gemini, Claude, Netflix, Canva, and more at fractional costs.
-            </p>
-            <div class="pt-1 flex items-center gap-2">
-              <span class="inline-flex items-center text-xs font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
-                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block mr-1.5 animate-pulse"></span>
-                Fast 5-15 Min Delivery
-              </span>
-            </div>
-          </div>
-
-          <!-- Quick Navigation -->
-          <div>
-            <h4 class="text-xs font-bold text-slate-900 uppercase tracking-wider mb-3">Browse Store</h4>
-            <ul class="space-y-2 text-sm">
-              <li><a href="index.html" class="text-slate-600 hover:text-slate-900 transition-colors">Home Page</a></li>
-              <li><a href="catalog.html" class="text-slate-600 hover:text-slate-900 transition-colors">All Subscriptions</a></li>
-              <li><a href="catalog.html?category=ai" class="text-slate-600 hover:text-slate-900 transition-colors">AI Tools (ChatGPT, Gemini)</a></li>
-              <li><a href="catalog.html?category=streaming" class="text-slate-600 hover:text-slate-900 transition-colors">Streaming (Netflix, Spotify)</a></li>
-              <li><a href="catalog.html?category=dev" class="text-slate-600 hover:text-slate-900 transition-colors">Developer Tools (Copilot, Cursor)</a></li>
-            </ul>
-          </div>
-
-          <!-- Help & Policies -->
-          <div>
-            <h4 class="text-xs font-bold text-slate-900 uppercase tracking-wider mb-3">Customer Information</h4>
-            <ul class="space-y-2 text-sm">
-              <li><a href="how-it-works.html" class="text-slate-600 hover:text-slate-900 transition-colors">How Ordering Works</a></li>
-              <li><a href="how-it-works.html#payment" class="text-slate-600 hover:text-slate-900 transition-colors">Payment Methods</a></li>
-              <li><a href="policy.html" class="text-slate-600 hover:text-slate-900 transition-colors font-semibold text-amber-700">No-Refund Policy</a></li>
-              <li><a href="policy.html#security" class="text-slate-600 hover:text-slate-900 transition-colors">Anti-Scam Verification</a></li>
-              <li><a href="contact.html" class="text-slate-600 hover:text-slate-900 transition-colors">Help & Inquiries</a></li>
-            </ul>
-          </div>
-
-          <!-- Direct Verified Contact -->
-          <div>
-            <h4 class="text-xs font-bold text-slate-900 uppercase tracking-wider mb-3">Direct Contact</h4>
-            <p class="text-xs text-slate-500 mb-3">Orders are confirmed and activated directly with Abu Hurairah:</p>
-            <div class="space-y-2.5 text-sm">
-              <a href="https://wa.me/${STORE_CONFIG.phoneRaw}" target="_blank" rel="noopener" class="flex items-center gap-2.5 text-slate-700 hover:text-emerald-600 transition-colors font-medium">
-                <span class="w-7 h-7 rounded bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
-                  <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.599 2.679-.702c.97.53 1.77.822 2.78.822 3.18 0 5.767-2.587 5.768-5.766.001-3.182-2.585-5.806-5.767-5.806z"/></svg>
-                </span>
-                <span>WhatsApp: <strong>${STORE_CONFIG.phoneDisplay}</strong></span>
-              </a>
-              <a href="tel:${STORE_CONFIG.phoneRaw}" class="flex items-center gap-2.5 text-slate-700 hover:text-blue-600 transition-colors">
-                <span class="w-7 h-7 rounded bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
-                  <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                </span>
-                <span>Phone: ${STORE_CONFIG.phoneDisplay}</span>
-              </a>
-              <a href="mailto:${STORE_CONFIG.email}" class="flex items-center gap-2.5 text-slate-700 hover:text-blue-600 transition-colors break-all">
-                <span class="w-7 h-7 rounded bg-slate-100 text-slate-700 flex items-center justify-center shrink-0">
-                  <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-                </span>
-                <span class="text-xs sm:text-sm">${STORE_CONFIG.email}</span>
-              </a>
-            </div>
-          </div>
-
-        </div>
-
-        <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
-          <p>&copy; ${new Date().getFullYear()} ${STORE_CONFIG.storeName}. All rights reserved.</p>
+        <div class="pt-6 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-gray-3 font-medium">
+          <p><strong>&copy; ${new Date().getFullYear()} ${STORE_CONFIG.storeName}. All rights reserved.</strong></p>
           <div class="flex items-center gap-4">
-            <span>Official Digital Goods</span>
+            <a href="policy.html" class="no-underline hover:text-dark">Terms of Service</a>
             <span>&bull;</span>
-            <span>No Refunds Policy</span>
-            <span>&bull;</span>
-            <a href="policy.html" class="text-slate-500 hover:text-slate-800 underline">Terms & Fraud Disclaimer</a>
+            <a href="contact.html" class="no-underline hover:text-dark">Support</a>
           </div>
         </div>
 
@@ -235,18 +271,70 @@ function renderUniversalFooter() {
 }
 
 /**
- * 4. Floating WhatsApp Quick Contact Button
+ * 4. Header Search & Mobile Drawer Event Handlers
+ */
+function setupSearchAndSidebarEvents() {
+  const searchToggle = document.getElementById("searchToggle");
+  const headerSearch = document.getElementById("header-search");
+  const searchClose = document.getElementById("searchClose");
+  const searchInput = document.getElementById("headerSearchInput");
+
+  const menuToggle = document.getElementById("menuToggle");
+  const sidebar = document.getElementById("sidebar");
+  const sidebarOverlay = document.getElementById("sidebarOverlay");
+
+  if (searchToggle && headerSearch) {
+    searchToggle.addEventListener("click", () => {
+      headerSearch.classList.add("active");
+      if (searchInput) searchInput.focus();
+    });
+  }
+
+  if (searchClose && headerSearch) {
+    searchClose.addEventListener("click", () => {
+      headerSearch.classList.remove("active");
+      if (searchInput) searchInput.value = "";
+    });
+  }
+
+  if (searchInput) {
+    searchInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" && searchInput.value.trim()) {
+        const q = encodeURIComponent(searchInput.value.trim());
+        window.location.href = `catalog.html?search=${q}`;
+      }
+    });
+  }
+
+  const openSidebar = () => {
+    if (sidebar) sidebar.classList.add("active");
+    if (sidebarOverlay) sidebarOverlay.classList.add("active");
+    document.body.style.overflow = "hidden";
+  };
+
+  const closeSidebar = () => {
+    if (sidebar) sidebar.classList.remove("active");
+    if (sidebarOverlay) sidebarOverlay.classList.remove("active");
+    document.body.style.overflow = "";
+  };
+
+  if (menuToggle) menuToggle.addEventListener("click", openSidebar);
+  if (sidebarOverlay) sidebarOverlay.addEventListener("click", closeSidebar);
+}
+
+/**
+ * 5. Floating WhatsApp Button
  */
 function renderFloatingWhatsApp() {
   const existing = document.querySelector(".floating-whatsapp");
   if (existing) return;
 
   const btn = document.createElement("a");
-  btn.href = `https://wa.me/${STORE_CONFIG.phoneRaw}?text=${encodeURIComponent('Hi Abu Hurairah, I need assistance with a subscription.')}`;
+  btn.href = `https://wa.me/${STORE_CONFIG.phoneRaw}?text=${encodeURIComponent('Hi ELite Subscriptions, I need assistance with an official subscription.')}`;
   btn.target = "_blank";
   btn.rel = "noopener";
   btn.className = "floating-whatsapp";
-  btn.setAttribute("aria-label", "Chat with Abu Hurairah on WhatsApp");
+  btn.setAttribute("aria-label", "Order on WhatsApp");
   btn.innerHTML = `
     <svg class="w-7 h-7 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.599 2.679-.702c.97.53 1.77.822 2.78.822 3.18 0 5.767-2.587 5.768-5.766.001-3.182-2.585-5.806-5.767-5.806zm0 10.455c-.93 0-1.74-.26-2.45-.73l-.18-.11-1.82.48.49-1.77-.12-.19c-.53-.84-.81-1.71-.81-2.61 0-2.66 2.17-4.83 4.88-4.83 2.68 0 4.87 2.17 4.87 4.83 0 2.66-2.19 4.92-4.88 4.92zm2.66-3.66c-.15-.07-.86-.42-.99-.47-.14-.05-.24-.07-.34.07-.1.15-.38.47-.47.57-.09.1-.18.12-.32.05-.72-.36-1.39-.77-1.92-1.3-.43-.44-.72-.94-.85-1.16-.08-.14-.01-.22.06-.29.07-.07.15-.17.22-.25.07-.09.1-.15.15-.25.05-.1.02-.19-.01-.26-.03-.07-.34-.81-.46-1.12-.12-.29-.25-.26-.34-.26h-.29c-.1 0-.26.04-.4.19-.14.15-.53.52-.53 1.27s.55 1.47.62 1.57c.07.1 1.07 1.64 2.6 2.3 1.53.66 1.53.44 1.8.41.28-.03.88-.36 1-.71.13-.35.13-.65.09-.71-.04-.07-.14-.11-.28-.18z"/></svg>
   `;
@@ -254,7 +342,7 @@ function renderFloatingWhatsApp() {
 }
 
 /**
- * 5. Global Interactive Order Modal
+ * 6. LiteAPKs Styled Product Order Modal
  */
 let currentModalProduct = null;
 let currentSelectedPlan = null;
@@ -262,63 +350,64 @@ let currentSelectedPlan = null;
 function setupOrderModal() {
   const modalHTML = `
     <div id="order-modal" class="modal-backdrop">
-      <div class="modal-content p-6 sm:p-8">
+      <div class="modal-content p-5 sm:p-7">
         
-        <!-- Header -->
-        <div class="flex items-start justify-between pb-4 border-b border-slate-100">
-          <div class="flex items-center gap-3">
-            <div id="modal-product-icon" class="w-12 h-12 rounded-xl bg-slate-100 flex items-center justify-center"></div>
+        <!-- Modal Top Title -->
+        <div class="flex items-start justify-between pb-4 border-b border-border">
+          <div class="flex items-center gap-3.5">
+            <div id="modal-product-icon" class="w-12 h-12 rounded-2xl bg-gray-50 flex items-center justify-center p-2 shadow-sm shrink-0"></div>
             <div>
-              <h3 id="modal-product-name" class="font-heading font-bold text-slate-900 text-lg sm:text-xl leading-tight">Product Title</h3>
-              <p id="modal-product-type" class="text-xs text-slate-500 font-medium">Official Activation</p>
+              <h3 id="modal-product-name" class="font-extrabold text-dark text-lg sm:text-xl leading-tight font-heading">Product Title</h3>
+              <div class="flex items-center gap-2 mt-1 font-medium">
+                <span class="flex items-center gap-0.5 text-xs font-bold text-dark">
+                  <span id="modal-product-rating">5.0</span>
+                  <svg class="w-3.5 h-3.5 text-star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                </span>
+                <span class="text-xs text-gray-3">&bull;</span>
+                <span id="modal-product-type" class="text-xs font-semibold text-primary">Official Upgrade</span>
+              </div>
             </div>
           </div>
-          <button id="modal-close-btn" class="text-slate-400 hover:text-slate-600 p-1.5 rounded-lg hover:bg-slate-100 transition-colors" aria-label="Close modal">
-            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          <button id="modal-close-btn" class="w-9 h-9 rounded-full flex items-center justify-center text-gray-3 hover:bg-slate-100 transition-colors" aria-label="Close modal">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
           </button>
         </div>
 
-        <!-- Body -->
-        <div class="py-5 space-y-5">
-          <!-- Mandatory Warning reminder inside order checkout -->
-          <div class="p-3.5 bg-amber-50 rounded-lg border border-amber-200 text-xs text-amber-900 flex items-start gap-2">
-            <svg class="w-4 h-4 text-amber-600 shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-            <div>
-              <strong>No-Refund Policy Reminder:</strong> This is an official digital subscription. Once delivered, it cannot be refunded or cancelled.
+        <!-- Modal Body -->
+        <div class="py-4 space-y-4">
+          
+          <!-- Select Plan Duration -->
+          <div>
+            <label class="block text-xs font-extrabold text-gray uppercase tracking-wider mb-2 font-heading">Select Duration Plan:</label>
+            <div id="modal-plans-container" class="grid grid-cols-2 sm:grid-cols-3 gap-2">
+              <!-- Dynamically rendered -->
             </div>
           </div>
 
-          <!-- Select Duration / Plan -->
+          <!-- What's Included -->
           <div>
-            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Choose Plan Duration:</label>
-            <div id="modal-plans-container" class="grid grid-cols-2 gap-2.5">
-              <!-- Dynamically populated -->
-            </div>
-          </div>
-
-          <!-- Feature Highlights -->
-          <div>
-            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">What is included:</label>
-            <ul id="modal-features-list" class="space-y-1.5 text-xs sm:text-sm text-slate-600">
-              <!-- Dynamically populated -->
+            <label class="block text-xs font-extrabold text-gray uppercase tracking-wider mb-2 font-heading">What is included:</label>
+            <ul id="modal-features-list" class="space-y-1.5 text-xs text-dark font-medium">
+              <!-- Dynamically rendered -->
             </ul>
           </div>
 
-          <!-- Delivery info -->
-          <div class="flex items-center justify-between text-xs py-2 px-3 bg-slate-50 rounded-lg border border-slate-200">
-            <span class="text-slate-500">Estimated Delivery:</span>
-            <span id="modal-delivery-time" class="font-bold text-slate-800">5 - 15 mins</span>
+          <!-- Activation Info Row -->
+          <div class="flex items-center justify-between text-xs py-2 px-3 bg-gray-50 rounded-xl border border-border font-medium">
+            <span class="text-gray font-semibold">Activation Time:</span>
+            <span id="modal-delivery-time" class="font-bold text-dark font-heading">5 - 15 mins</span>
           </div>
+
         </div>
 
-        <!-- Footer / Action Buttons -->
-        <div class="pt-4 border-t border-slate-100 flex flex-col sm:flex-row items-center gap-3">
-          <a id="modal-whatsapp-cta" href="#" target="_blank" rel="noopener" class="btn-whatsapp w-full py-3 text-sm font-bold justify-center">
-            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.599 2.679-.702c.97.53 1.77.822 2.78.822 3.18 0 5.767-2.587 5.768-5.766.001-3.182-2.585-5.806-5.767-5.806z"/></svg>
-            Claim 100% Free on WhatsApp
+        <!-- Modal Footer Actions -->
+        <div class="pt-3 border-t border-border flex flex-col sm:flex-row items-center gap-2.5">
+          <a id="modal-whatsapp-cta" href="#" target="_blank" rel="noopener" class="btn-install">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.599 2.679-.702c.97.53 1.77.822 2.78.822 3.18 0 5.767-2.587 5.768-5.766.001-3.182-2.585-5.806-5.767-5.806zm0 10.455c-.93 0-1.74-.26-2.45-.73l-.18-.11-1.82.48.49-1.77-.12-.19c-.53-.84-.81-1.71-.81-2.61 0-2.66 2.17-4.83 4.88-4.83 2.68 0 4.87 2.17 4.87 4.83 0 2.66-2.19 4.92-4.88 4.92z"/></svg>
+            Order On WhatsApp
           </a>
-          <button id="modal-cancel-btn" class="btn-secondary w-full sm:w-auto py-3 text-sm justify-center">
-            Cancel
+          <button id="modal-cancel-btn" class="btn-secondary-lite w-full sm:w-auto py-2.5 px-4 font-bold">
+            Close
           </button>
         </div>
 
@@ -336,11 +425,13 @@ function setupOrderModal() {
     modal.classList.remove("active");
   };
 
-  closeBtn.addEventListener("click", closeModal);
-  cancelBtn.addEventListener("click", closeModal);
-  modal.addEventListener("click", (e) => {
-    if (e.target === modal) closeModal();
-  });
+  if (closeBtn) closeBtn.addEventListener("click", closeModal);
+  if (cancelBtn) cancelBtn.addEventListener("click", closeModal);
+  if (modal) {
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) closeModal();
+    });
+  }
 }
 
 function openOrderModal(productId, defaultPlanDuration) {
@@ -352,25 +443,25 @@ function openOrderModal(productId, defaultPlanDuration) {
   const modalName = document.getElementById("modal-product-name");
   const modalType = document.getElementById("modal-product-type");
   const modalIcon = document.getElementById("modal-product-icon");
+  const modalRating = document.getElementById("modal-product-rating");
   const modalDelivery = document.getElementById("modal-delivery-time");
   const plansContainer = document.getElementById("modal-plans-container");
   const featuresList = document.getElementById("modal-features-list");
   const whatsappCta = document.getElementById("modal-whatsapp-cta");
 
-  modalName.textContent = product.name;
+  modalName.textContent = product.fullName || product.name;
   modalType.textContent = `${product.categoryLabel} • ${product.accountType}`;
   modalIcon.innerHTML = product.iconSvg;
+  if (modalRating) modalRating.textContent = product.rating || "5.0";
   modalDelivery.textContent = product.deliveryTime;
 
-  // Features
   featuresList.innerHTML = product.features.map(f => `
     <li class="flex items-center gap-2">
-      <svg class="w-4 h-4 text-emerald-600 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+      <svg class="w-4 h-4 text-primary shrink-0" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
       <span>${f}</span>
     </li>
   `).join("");
 
-  // Plans selection
   plansContainer.innerHTML = "";
   const plans = product.plans || [{ duration: product.duration, pricePKR: product.ourPricePKR, priceUSD: product.ourPriceUSD }];
   
@@ -385,19 +476,19 @@ function openOrderModal(productId, defaultPlanDuration) {
     const planBtn = document.createElement("button");
     const isSelected = plan.duration === activePlan.duration;
     planBtn.type = "button";
-    planBtn.className = `text-left p-3 rounded-xl border transition-all ${
+    planBtn.className = `text-left p-2.5 rounded-xl border transition-all ${
       isSelected 
-        ? "border-slate-900 bg-slate-900 text-white shadow-sm ring-2 ring-slate-900/10" 
-        : "border-slate-200 bg-white text-slate-800 hover:border-slate-300"
+        ? "border-primary bg-primary/10 text-dark shadow-sm ring-2 ring-primary/20" 
+        : "border-border bg-white text-dark hover:border-slate-300"
     }`;
 
     planBtn.innerHTML = `
-      <div class="flex items-center justify-between text-xs font-semibold mb-1">
-        <span class="${isSelected ? 'text-slate-200' : 'text-slate-600'}">${plan.duration}</span>
-        ${plan.save ? `<span class="text-[10px] px-1.5 py-0.5 rounded ${isSelected ? 'bg-emerald-500 text-white' : 'bg-emerald-50 text-emerald-700 border border-emerald-200'} font-bold">${plan.save}</span>` : ''}
+      <div class="flex items-center justify-between text-xs font-bold mb-1 font-heading">
+        <span>${plan.duration}</span>
+        ${plan.save ? `<span class="text-[9px] px-1.5 py-0.2 rounded bg-primary text-white font-extrabold">${plan.save}</span>` : ''}
       </div>
-      <div class="text-sm font-bold ${isSelected ? 'text-emerald-300' : 'text-emerald-600'}">${plan.pricePKR}</div>
-      <div class="text-[11px] ${isSelected ? 'text-slate-300' : 'text-slate-400'}">${plan.priceUSD} • Free Giveaway</div>
+      <div class="text-sm font-extrabold text-primary font-heading">${plan.pricePKR}</div>
+      <div class="text-[10px] text-gray-3">${plan.priceUSD}</div>
     `;
 
     planBtn.addEventListener("click", () => {
@@ -408,9 +499,7 @@ function openOrderModal(productId, defaultPlanDuration) {
     plansContainer.appendChild(planBtn);
   });
 
-  // Update WhatsApp link
   whatsappCta.href = getWhatsAppOrderLink(product, currentSelectedPlan.duration);
-
   modal.classList.add("active");
 }
 window.openOrderModal = openOrderModal;
