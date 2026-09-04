@@ -69,7 +69,7 @@ function renderUniversalNavbar() {
             </a>
             <a href="https://wa.me/${STORE_CONFIG.phoneRaw}?text=${encodeURIComponent('Hi Abu Hurairah, I would like to buy a subscription.')}" target="_blank" rel="noopener" class="btn-whatsapp text-xs py-1.5 px-3">
               <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.599 2.679-.702c.97.53 1.77.822 2.78.822 3.18 0 5.767-2.587 5.768-5.766.001-3.182-2.585-5.806-5.767-5.806zm0 10.455c-.93 0-1.74-.26-2.45-.73l-.18-.11-1.82.48.49-1.77-.12-.19c-.53-.84-.81-1.71-.81-2.61 0-2.66 2.17-4.83 4.88-4.83 2.68 0 4.87 2.17 4.87 4.83 0 2.66-2.19 4.92-4.88 4.92zm2.66-3.66c-.15-.07-.86-.42-.99-.47-.14-.05-.24-.07-.34.07-.1.15-.38.47-.47.57-.09.1-.18.12-.32.05-.72-.36-1.39-.77-1.92-1.3-.43-.44-.72-.94-.85-1.16-.08-.14-.01-.22.06-.29.07-.07.15-.17.22-.25.07-.09.1-.15.15-.25.05-.1.02-.19-.01-.26-.03-.07-.34-.81-.46-1.12-.12-.29-.25-.26-.34-.26h-.29c-.1 0-.26.04-.4.19-.14.15-.53.52-.53 1.27s.55 1.47.62 1.57c.07.1 1.07 1.64 2.6 2.3 1.53.66 1.53.44 1.8.41.28-.03.88-.36 1-.71.13-.35.13-.65.09-.71-.04-.07-.14-.11-.28-.18z"/></svg>
-              WhatsApp Order
+              Claim 100% Free on WhatsApp
             </a>
           </div>
 
@@ -315,7 +315,7 @@ function setupOrderModal() {
         <div class="pt-4 border-t border-slate-100 flex flex-col sm:flex-row items-center gap-3">
           <a id="modal-whatsapp-cta" href="#" target="_blank" rel="noopener" class="btn-whatsapp w-full py-3 text-sm font-bold justify-center">
             <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.599 2.679-.702c.97.53 1.77.822 2.78.822 3.18 0 5.767-2.587 5.768-5.766.001-3.182-2.585-5.806-5.767-5.806z"/></svg>
-            Confirm & Order on WhatsApp
+            Claim 100% Free on WhatsApp
           </a>
           <button id="modal-cancel-btn" class="btn-secondary w-full sm:w-auto py-3 text-sm justify-center">
             Cancel
@@ -396,8 +396,8 @@ function openOrderModal(productId, defaultPlanDuration) {
         <span class="${isSelected ? 'text-slate-200' : 'text-slate-600'}">${plan.duration}</span>
         ${plan.save ? `<span class="text-[10px] px-1.5 py-0.5 rounded ${isSelected ? 'bg-emerald-500 text-white' : 'bg-emerald-50 text-emerald-700 border border-emerald-200'} font-bold">${plan.save}</span>` : ''}
       </div>
-      <div class="text-sm font-bold">${plan.pricePKR}</div>
-      <div class="text-[11px] ${isSelected ? 'text-slate-300' : 'text-slate-400'}">${plan.priceUSD}</div>
+      <div class="text-sm font-bold ${isSelected ? 'text-emerald-300' : 'text-emerald-600'}">${plan.pricePKR}</div>
+      <div class="text-[11px] ${isSelected ? 'text-slate-300' : 'text-slate-400'}">${plan.priceUSD} • Free Giveaway</div>
     `;
 
     planBtn.addEventListener("click", () => {

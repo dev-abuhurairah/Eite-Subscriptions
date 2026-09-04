@@ -18,10 +18,12 @@ const STORE_CONFIG = {
   deliveryAverage: "5 - 15 Minutes",
   logoUrl: "assets/logo-icon-transparent.png",
   fullLogoUrl: "assets/logo.jpg",
+  isFreePromo: true,
+  promoText: "Special Promo: Everything is 100% FREE (Rs. 0)",
   
   // Mandatory Warning displayed on every page
   mandatoryWarning: {
-    badge: "Official Subscriptions Only",
+    badge: "100% FREE",
     message: "All subscriptions are 100% official and genuine. We do NOT offer any kind of refund once activated. Never purchase from unauthorized third parties — we will NEVER ask for your personal credentials, passwords, or OTPs.",
     shortMessage: "100% Official Subscriptions • Strictly No Refunds • We Never Ask For Passwords Or Personal Credentials"
   }
@@ -43,20 +45,20 @@ const PRODUCTS = [
     name: "ChatGPT Plus (GPT-4o)",
     category: "ai",
     categoryLabel: "AI & Smart Tools",
-    badge: "Most Popular",
+    badge: "100% FREE",
     badgeClass: "badge-green",
     description: "Full access to GPT-4o, Advanced Voice, Canvas, and DALL-E 3 image generation.",
     officialPrice: "$20.00/mo",
-    ourPricePKR: "Rs. 2,150",
-    ourPriceUSD: "$7.50",
+    ourPricePKR: "FREE (Rs. 0)",
+    ourPriceUSD: "$0.00",
     duration: "1 Month",
     deliveryTime: "Instant (5-10 mins)",
     accountType: "Private / Email Upgrade",
     plans: [
-      { duration: "1 Month", pricePKR: "Rs. 2,150", priceUSD: "$7.50", save: "65% OFF" },
-      { duration: "3 Months", pricePKR: "Rs. 5,900", priceUSD: "$21.00", save: "70% OFF" },
-      { duration: "6 Months", pricePKR: "Rs. 10,999", priceUSD: "$39.00", save: "75% OFF" },
-      { duration: "1 Year", pricePKR: "Rs. 19,500", priceUSD: "$70.00", save: "80% OFF" }
+      { duration: "1 Month", pricePKR: "FREE (Rs. 0)", priceUSD: "$0.00", save: "100% FREE" },
+      { duration: "3 Months", pricePKR: "FREE (Rs. 0)", priceUSD: "$0.00", save: "100% FREE" },
+      { duration: "6 Months", pricePKR: "FREE (Rs. 0)", priceUSD: "$0.00", save: "100% FREE" },
+      { duration: "1 Year", pricePKR: "FREE (Rs. 0)", priceUSD: "$0.00", save: "100% FREE" }
     ],
     features: [
       "Access to latest GPT-4o & GPT-4 models",
@@ -73,19 +75,19 @@ const PRODUCTS = [
     name: "Google Gemini Advanced",
     category: "ai",
     categoryLabel: "AI & Smart Tools",
-    badge: "Hot Deal",
-    badgeClass: "badge-blue",
+    badge: "100% FREE",
+    badgeClass: "badge-green",
     description: "Gemini 1.5 Pro with 1M-2M context window, integrated with Google One 2TB cloud storage.",
     officialPrice: "$19.99/mo",
-    ourPricePKR: "Rs. 1,950",
-    ourPriceUSD: "$6.99",
+    ourPricePKR: "FREE (Rs. 0)",
+    ourPriceUSD: "$0.00",
     duration: "1 Month",
     deliveryTime: "5 - 15 mins",
     accountType: "Direct Google Account Upgrade",
     plans: [
-      { duration: "1 Month", pricePKR: "Rs. 1,950", priceUSD: "$6.99", save: "65% OFF" },
-      { duration: "3 Months", pricePKR: "Rs. 5,400", priceUSD: "$19.50", save: "68% OFF" },
-      { duration: "1 Year", pricePKR: "Rs. 18,000", priceUSD: "$64.00", save: "73% OFF" }
+      { duration: "1 Month", pricePKR: "FREE (Rs. 0)", priceUSD: "$0.00", save: "100% FREE" },
+      { duration: "3 Months", pricePKR: "FREE (Rs. 0)", priceUSD: "$0.00", save: "100% FREE" },
+      { duration: "1 Year", pricePKR: "FREE (Rs. 0)", priceUSD: "$0.00", save: "100% FREE" }
     ],
     features: [
       "Google's most capable AI model (Gemini 1.5 Pro)",
@@ -102,19 +104,19 @@ const PRODUCTS = [
     name: "Anthropic Claude Pro",
     category: "ai",
     categoryLabel: "AI & Smart Tools",
-    badge: "Trending",
-    badgeClass: "badge-purple",
+    badge: "100% FREE",
+    badgeClass: "badge-green",
     description: "5x more usage of Claude 3.5 Sonnet, interactive Artifacts visualizer and early feature access.",
     officialPrice: "$20.00/mo",
-    ourPricePKR: "Rs. 2,250",
-    ourPriceUSD: "$7.99",
+    ourPricePKR: "FREE (Rs. 0)",
+    ourPriceUSD: "$0.00",
     duration: "1 Month",
     deliveryTime: "Instant (5-15 mins)",
     accountType: "Private Account",
     plans: [
-      { duration: "1 Month", pricePKR: "Rs. 2,250", priceUSD: "$7.99", save: "60% OFF" },
-      { duration: "3 Months", pricePKR: "Rs. 6,200", priceUSD: "$22.00", save: "65% OFF" },
-      { duration: "6 Months", pricePKR: "Rs. 11,500", priceUSD: "$41.00", save: "70% OFF" }
+      { duration: "1 Month", pricePKR: "FREE (Rs. 0)", priceUSD: "$0.00", save: "100% FREE" },
+      { duration: "3 Months", pricePKR: "FREE (Rs. 0)", priceUSD: "$0.00", save: "100% FREE" },
+      { duration: "6 Months", pricePKR: "FREE (Rs. 0)", priceUSD: "$0.00", save: "100% FREE" }
     ],
     features: [
       "Claude 3.5 Sonnet top-tier coding & reasoning",
@@ -130,18 +132,18 @@ const PRODUCTS = [
     name: "Midjourney AI",
     category: "ai",
     categoryLabel: "AI & Smart Tools",
-    badge: "Creative Top Pick",
-    badgeClass: "badge-amber",
+    badge: "100% FREE",
+    badgeClass: "badge-green",
     description: "Industry standard photorealistic AI art generator with fast GPU generation hours.",
     officialPrice: "$30.00/mo",
-    ourPricePKR: "Rs. 2,800",
-    ourPriceUSD: "$9.99",
+    ourPricePKR: "FREE (Rs. 0)",
+    ourPriceUSD: "$0.00",
     duration: "1 Month",
     deliveryTime: "10 - 20 mins",
     accountType: "Private / Discord Activated",
     plans: [
-      { duration: "1 Month", pricePKR: "Rs. 2,800", priceUSD: "$9.99", save: "67% OFF" },
-      { duration: "3 Months", pricePKR: "Rs. 7,800", priceUSD: "$27.99", save: "70% OFF" }
+      { duration: "1 Month", pricePKR: "FREE (Rs. 0)", priceUSD: "$0.00", save: "100% FREE" },
+      { duration: "3 Months", pricePKR: "FREE (Rs. 0)", priceUSD: "$0.00", save: "100% FREE" }
     ],
     features: [
       "15 hours fast GPU generation",
@@ -157,19 +159,19 @@ const PRODUCTS = [
     name: "Canva Pro",
     category: "design",
     categoryLabel: "Design & Creative",
-    badge: "Best Value",
+    badge: "100% FREE",
     badgeClass: "badge-green",
     description: "100M+ stock assets, Magic Studio AI tools, brand kits, and 1-click background remover.",
     officialPrice: "$12.99/mo",
-    ourPricePKR: "Rs. 650",
-    ourPriceUSD: "$2.50",
+    ourPricePKR: "FREE (Rs. 0)",
+    ourPriceUSD: "$0.00",
     duration: "1 Month",
     deliveryTime: "Instant (5 mins)",
     accountType: "Personal Email Invite",
     plans: [
-      { duration: "1 Month", pricePKR: "Rs. 650", priceUSD: "$2.50", save: "80% OFF" },
-      { duration: "6 Months", pricePKR: "Rs. 1,800", priceUSD: "$6.50", save: "85% OFF" },
-      { duration: "1 Year", pricePKR: "Rs. 2,900", priceUSD: "$10.50", save: "90% OFF" }
+      { duration: "1 Month", pricePKR: "FREE (Rs. 0)", priceUSD: "$0.00", save: "100% FREE" },
+      { duration: "6 Months", pricePKR: "FREE (Rs. 0)", priceUSD: "$0.00", save: "100% FREE" },
+      { duration: "1 Year", pricePKR: "FREE (Rs. 0)", priceUSD: "$0.00", save: "100% FREE" }
     ],
     features: [
       "1-Click Background Remover & Magic Eraser",
@@ -186,19 +188,19 @@ const PRODUCTS = [
     name: "Netflix Premium 4K UHD",
     category: "streaming",
     categoryLabel: "Streaming & Movies",
-    badge: "Ultra HD",
-    badgeClass: "badge-blue",
+    badge: "100% FREE",
+    badgeClass: "badge-green",
     description: "Watch movies & TV series in 4K Ultra HD + HDR with immersive Spatial Audio.",
     officialPrice: "$22.99/mo",
-    ourPricePKR: "Rs. 1,100",
-    ourPriceUSD: "$3.99",
+    ourPricePKR: "FREE (Rs. 0)",
+    ourPriceUSD: "$0.00",
     duration: "1 Month",
     deliveryTime: "Instant (5 mins)",
     accountType: "Private Profile with PIN",
     plans: [
-      { duration: "1 Month", pricePKR: "Rs. 1,100", priceUSD: "$3.99", save: "82% OFF" },
-      { duration: "3 Months", pricePKR: "Rs. 3,100", priceUSD: "$11.00", save: "84% OFF" },
-      { duration: "6 Months", pricePKR: "Rs. 5,800", priceUSD: "$20.50", save: "86% OFF" }
+      { duration: "1 Month", pricePKR: "FREE (Rs. 0)", priceUSD: "$0.00", save: "100% FREE" },
+      { duration: "3 Months", pricePKR: "FREE (Rs. 0)", priceUSD: "$0.00", save: "100% FREE" },
+      { duration: "6 Months", pricePKR: "FREE (Rs. 0)", priceUSD: "$0.00", save: "100% FREE" }
     ],
     features: [
       "Ultra HD (4K) and HDR resolution",
@@ -214,20 +216,20 @@ const PRODUCTS = [
     name: "Spotify Premium",
     category: "streaming",
     categoryLabel: "Streaming & Movies",
-    badge: "Ad-Free",
+    badge: "100% FREE",
     badgeClass: "badge-green",
     description: "Unlimited ad-free music, offline listening, and high-fidelity 320kbps streaming audio.",
     officialPrice: "$10.99/mo",
-    ourPricePKR: "Rs. 550",
-    ourPriceUSD: "$1.99",
+    ourPricePKR: "FREE (Rs. 0)",
+    ourPriceUSD: "$0.00",
     duration: "1 Month",
     deliveryTime: "Instant (5 mins)",
     accountType: "Personal Email Upgrade",
     plans: [
-      { duration: "1 Month", pricePKR: "Rs. 550", priceUSD: "$1.99", save: "80% OFF" },
-      { duration: "3 Months", pricePKR: "Rs. 1,500", priceUSD: "$5.40", save: "83% OFF" },
-      { duration: "6 Months", pricePKR: "Rs. 2,700", priceUSD: "$9.70", save: "85% OFF" },
-      { duration: "1 Year", pricePKR: "Rs. 4,900", priceUSD: "$17.50", save: "87% OFF" }
+      { duration: "1 Month", pricePKR: "FREE (Rs. 0)", priceUSD: "$0.00", save: "100% FREE" },
+      { duration: "3 Months", pricePKR: "FREE (Rs. 0)", priceUSD: "$0.00", save: "100% FREE" },
+      { duration: "6 Months", pricePKR: "FREE (Rs. 0)", priceUSD: "$0.00", save: "100% FREE" },
+      { duration: "1 Year", pricePKR: "FREE (Rs. 0)", priceUSD: "$0.00", save: "100% FREE" }
     ],
     features: [
       "Completely Ad-Free Music Streaming",
@@ -243,20 +245,20 @@ const PRODUCTS = [
     name: "YouTube Premium",
     category: "streaming",
     categoryLabel: "Streaming & Movies",
-    badge: "Popular",
-    badgeClass: "badge-purple",
+    badge: "100% FREE",
+    badgeClass: "badge-green",
     description: "Ad-free YouTube videos, background playback on mobile, and YouTube Music Premium included.",
     officialPrice: "$13.99/mo",
-    ourPricePKR: "Rs. 500",
-    ourPriceUSD: "$1.80",
+    ourPricePKR: "FREE (Rs. 0)",
+    ourPriceUSD: "$0.00",
     duration: "1 Month",
     deliveryTime: "5 - 10 mins",
     accountType: "Personal Gmail Invite",
     plans: [
-      { duration: "1 Month", pricePKR: "Rs. 500", priceUSD: "$1.80", save: "87% OFF" },
-      { duration: "3 Months", pricePKR: "Rs. 1,350", priceUSD: "$4.90", save: "88% OFF" },
-      { duration: "6 Months", pricePKR: "Rs. 2,400", priceUSD: "$8.60", save: "90% OFF" },
-      { duration: "1 Year", pricePKR: "Rs. 4,200", priceUSD: "$15.00", save: "92% OFF" }
+      { duration: "1 Month", pricePKR: "FREE (Rs. 0)", priceUSD: "$0.00", save: "100% FREE" },
+      { duration: "3 Months", pricePKR: "FREE (Rs. 0)", priceUSD: "$0.00", save: "100% FREE" },
+      { duration: "6 Months", pricePKR: "FREE (Rs. 0)", priceUSD: "$0.00", save: "100% FREE" },
+      { duration: "1 Year", pricePKR: "FREE (Rs. 0)", priceUSD: "$0.00", save: "100% FREE" }
     ],
     features: [
       "Zero ads across all videos",
@@ -272,19 +274,19 @@ const PRODUCTS = [
     name: "GitHub Copilot",
     category: "dev",
     categoryLabel: "Developer Tools",
-    badge: "For Coders",
-    badgeClass: "badge-blue",
+    badge: "100% FREE",
+    badgeClass: "badge-green",
     description: "AI pair programmer supporting VS Code, JetBrains, and Neovim with inline completions and chat.",
     officialPrice: "$10.00/mo",
-    ourPricePKR: "Rs. 1,400",
-    ourPriceUSD: "$4.99",
+    ourPricePKR: "FREE (Rs. 0)",
+    ourPriceUSD: "$0.00",
     duration: "1 Month",
     deliveryTime: "10 - 20 mins",
     accountType: "GitHub Account Direct Activation",
     plans: [
-      { duration: "1 Month", pricePKR: "Rs. 1,400", priceUSD: "$4.99", save: "50% OFF" },
-      { duration: "3 Months", pricePKR: "Rs. 3,900", priceUSD: "$13.99", save: "55% OFF" },
-      { duration: "1 Year", pricePKR: "Rs. 13,500", priceUSD: "$48.00", save: "60% OFF" }
+      { duration: "1 Month", pricePKR: "FREE (Rs. 0)", priceUSD: "$0.00", save: "100% FREE" },
+      { duration: "3 Months", pricePKR: "FREE (Rs. 0)", priceUSD: "$0.00", save: "100% FREE" },
+      { duration: "1 Year", pricePKR: "FREE (Rs. 0)", priceUSD: "$0.00", save: "100% FREE" }
     ],
     features: [
       "Real-time code completions across 20+ languages",
@@ -300,18 +302,18 @@ const PRODUCTS = [
     name: "Cursor AI Pro",
     category: "dev",
     categoryLabel: "Developer Tools",
-    badge: "Super Popular",
-    badgeClass: "badge-purple",
+    badge: "100% FREE",
+    badgeClass: "badge-green",
     description: "Next-gen AI code editor with unlimited fast completions, Claude 3.5 Sonnet & GPT-4o codebase search.",
     officialPrice: "$20.00/mo",
-    ourPricePKR: "Rs. 2,400",
-    ourPriceUSD: "$8.50",
+    ourPricePKR: "FREE (Rs. 0)",
+    ourPriceUSD: "$0.00",
     duration: "1 Month",
     deliveryTime: "5 - 15 mins",
     accountType: "Private Account",
     plans: [
-      { duration: "1 Month", pricePKR: "Rs. 2,400", priceUSD: "$8.50", save: "58% OFF" },
-      { duration: "3 Months", pricePKR: "Rs. 6,600", priceUSD: "$23.50", save: "62% OFF" }
+      { duration: "1 Month", pricePKR: "FREE (Rs. 0)", priceUSD: "$0.00", save: "100% FREE" },
+      { duration: "3 Months", pricePKR: "FREE (Rs. 0)", priceUSD: "$0.00", save: "100% FREE" }
     ],
     features: [
       "Unlimited fast tab completions",
@@ -327,19 +329,19 @@ const PRODUCTS = [
     name: "Adobe Creative Cloud All Apps",
     category: "design",
     categoryLabel: "Design & Creative",
-    badge: "Pro Creative",
-    badgeClass: "badge-amber",
+    badge: "100% FREE",
+    badgeClass: "badge-green",
     description: "20+ creative apps including Photoshop, Illustrator, Premiere Pro, After Effects, and Adobe Firefly.",
     officialPrice: "$59.99/mo",
-    ourPricePKR: "Rs. 3,500",
-    ourPriceUSD: "$12.50",
+    ourPricePKR: "FREE (Rs. 0)",
+    ourPriceUSD: "$0.00",
     duration: "1 Month",
     deliveryTime: "15 - 30 mins",
     accountType: "Personal Adobe ID Activation",
     plans: [
-      { duration: "1 Month", pricePKR: "Rs. 3,500", priceUSD: "$12.50", save: "80% OFF" },
-      { duration: "3 Months", pricePKR: "Rs. 9,800", priceUSD: "$35.00", save: "82% OFF" },
-      { duration: "1 Year", pricePKR: "Rs. 32,000", priceUSD: "$115.00", save: "85% OFF" }
+      { duration: "1 Month", pricePKR: "FREE (Rs. 0)", priceUSD: "$0.00", save: "100% FREE" },
+      { duration: "3 Months", pricePKR: "FREE (Rs. 0)", priceUSD: "$0.00", save: "100% FREE" },
+      { duration: "1 Year", pricePKR: "FREE (Rs. 0)", priceUSD: "$0.00", save: "100% FREE" }
     ],
     features: [
       "Access to Photoshop, Premiere, Illustrator, After Effects, Lightroom",
@@ -355,19 +357,19 @@ const PRODUCTS = [
     name: "NordVPN Premium",
     category: "security",
     categoryLabel: "VPN & Security",
-    badge: "Maximum Security",
-    badgeClass: "badge-blue",
+    badge: "100% FREE",
+    badgeClass: "badge-green",
     description: "Ultra-fast VPN with 6000+ servers in 111 countries, Threat Protection, and 10 simultaneous devices.",
     officialPrice: "$12.99/mo",
-    ourPricePKR: "Rs. 850",
-    ourPriceUSD: "$2.99",
+    ourPricePKR: "FREE (Rs. 0)",
+    ourPriceUSD: "$0.00",
     duration: "1 Month",
     deliveryTime: "Instant (5 mins)",
     accountType: "Private / Multi-device Login",
     plans: [
-      { duration: "1 Month", pricePKR: "Rs. 850", priceUSD: "$2.99", save: "77% OFF" },
-      { duration: "6 Months", pricePKR: "Rs. 2,400", priceUSD: "$8.50", save: "82% OFF" },
-      { duration: "1 Year", pricePKR: "Rs. 4,200", priceUSD: "$15.00", save: "86% OFF" }
+      { duration: "1 Month", pricePKR: "FREE (Rs. 0)", priceUSD: "$0.00", save: "100% FREE" },
+      { duration: "6 Months", pricePKR: "FREE (Rs. 0)", priceUSD: "$0.00", save: "100% FREE" },
+      { duration: "1 Year", pricePKR: "FREE (Rs. 0)", priceUSD: "$0.00", save: "100% FREE" }
     ],
     features: [
       "6,000+ ultra-fast servers worldwide",
@@ -392,12 +394,11 @@ function getWhatsAppOrderLink(product, planDuration) {
   const duration = planDuration || product.duration;
   
   const text = encodeURIComponent(
-    `Hello Abu Hurairah,\n\nI want to purchase the following official subscription:\n` +
+    `Hello Abu Hurairah,\n\nI want to claim the following FREE official subscription promo:\n` +
     `• Service: ${product.name}\n` +
     `• Plan: ${duration}\n` +
-    `• Price: ${priceInfo}\n\n` +
-    `Please share your payment details (EasyPaisa / JazzCash / Bank Transfer / Binance) for activation.\n\n` +
-    `I understand all subscriptions are official and non-refundable.`
+    `• Price: 100% FREE (Rs. 0)\n\n` +
+    `Please activate my free access. Thank you!`
   );
   
   return `https://wa.me/${STORE_CONFIG.phoneRaw}?text=${text}`;

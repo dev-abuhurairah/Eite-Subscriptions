@@ -42,10 +42,10 @@ function createProductCardHTML(product) {
         <!-- Compact Inline Price Row -->
         <div class="mt-2.5 pt-2 border-t border-slate-100 flex items-baseline justify-between">
           <div>
-            <span class="text-xs sm:text-sm font-extrabold text-slate-900">${defaultPlan.pricePKR}</span>
+            <span class="text-xs sm:text-sm font-extrabold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200">${defaultPlan.pricePKR}</span>
             <span class="text-[10px] text-slate-400 line-through ml-1">${product.officialPrice}</span>
           </div>
-          <span class="text-[9px] font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200/60 px-1.5 py-0.5 rounded">
+          <span class="text-[9px] font-semibold text-blue-700 bg-blue-50 border border-blue-200/60 px-1.5 py-0.5 rounded">
             ${defaultPlan.duration}
           </span>
         </div>
@@ -67,7 +67,7 @@ function createProductCardHTML(product) {
         </button>
         <a href="${waDirectLink}" target="_blank" rel="noopener" class="btn-whatsapp text-[10px] py-1 px-1.5 font-bold justify-center">
           <svg class="w-2.5 h-2.5 shrink-0" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.599 2.679-.702c.97.53 1.77.822 2.78.822 3.18 0 5.767-2.587 5.768-5.766.001-3.182-2.585-5.806-5.767-5.806zm0 10.455c-.93 0-1.74-.26-2.45-.73l-.18-.11-1.82.48.49-1.77-.12-.19c-.53-.84-.81-1.71-.81-2.61 0-2.66 2.17-4.83 4.88-4.83 2.68 0 4.87 2.17 4.87 4.83 0 2.66-2.19 4.92-4.88 4.92zm2.66-3.66c-.15-.07-.86-.42-.99-.47-.14-.05-.24-.07-.34.07-.1.15-.38.47-.47.57-.09.1-.18.12-.32.05-.72-.36-1.39-.77-1.92-1.3-.43-.44-.72-.94-.85-1.16-.08-.14-.01-.22.06-.29.07-.07.15-.17.22-.25.07-.09.1-.15.15-.25.05-.1.02-.19-.01-.26-.03-.07-.34-.81-.46-1.12-.12-.29-.25-.26-.34-.26h-.29c-.1 0-.26.04-.4.19-.14.15-.53.52-.53 1.27s.55 1.47.62 1.57c.07.1 1.07 1.64 2.6 2.3 1.53.66 1.53.44 1.8.41.28-.03.88-.36 1-.71.13-.35.13-.65.09-.71-.04-.07-.14-.11-.28-.18z"/></svg>
-          Order
+          Claim Free
         </a>
       </div>
 
