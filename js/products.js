@@ -16,6 +16,8 @@ const STORE_CONFIG = {
   currencyCode: "PKR",
   secondaryCurrencySymbol: "$",
   deliveryAverage: "5 - 15 Minutes",
+  logoUrl: "assets/logo-icon-transparent.png",
+  fullLogoUrl: "assets/logo.jpg",
   
   // Mandatory Warning displayed on every page
   mandatoryWarning: {

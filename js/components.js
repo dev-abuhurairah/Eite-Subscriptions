@@ -42,8 +42,8 @@ function renderUniversalNavbar() {
           
           <!-- Logo & Brand -->
           <a href="index.html" class="flex items-center gap-2.5 group text-decoration-none py-1">
-            <div class="w-8 h-8 rounded-lg bg-slate-900 text-white flex items-center justify-center font-bold text-sm shadow-sm group-hover:bg-blue-600 transition-colors">
-              AH
+            <div class="w-9 h-9 rounded-xl bg-slate-900 flex items-center justify-center p-1 shadow-sm group-hover:scale-105 group-hover:bg-slate-800 transition-all border border-slate-800 shrink-0">
+              <img src="assets/logo-icon-transparent.png" alt="Abu Hurairah Subscriptions Logo" class="w-7 h-7 object-contain drop-shadow" />
             </div>
             <div>
               <div class="font-heading font-bold text-slate-900 text-sm sm:text-base leading-tight flex items-center gap-1.5">
@@ -153,11 +153,11 @@ function renderUniversalFooter() {
         <div class="grid grid-cols-1 md:grid-cols-4 gap-8 pb-10 border-b border-slate-200">
           <!-- Brand & Bio -->
           <div class="md:col-span-1 space-y-3">
-            <div class="flex items-center gap-2">
-              <div class="w-8 h-8 rounded-lg bg-slate-900 text-white flex items-center justify-center font-bold text-sm">
-                AH
+            <div class="flex items-center gap-2.5">
+              <div class="w-9 h-9 rounded-xl bg-slate-900 flex items-center justify-center p-1 shadow-sm border border-slate-800 shrink-0">
+                <img src="assets/logo-icon-transparent.png" alt="Abu Hurairah Subscriptions Logo" class="w-7 h-7 object-contain" />
               </div>
-              <span class="font-heading font-bold text-slate-900 text-lg">Abu Hurairah</span>
+              <span class="font-heading font-bold text-slate-900 text-base sm:text-lg">Abu Hurairah</span>
             </div>
             <p class="text-xs sm:text-sm text-slate-500 leading-relaxed">
               Trusted provider of cheap, official apps & tool subscriptions. Get premium access to ChatGPT, Gemini, Claude, Netflix, Canva, and more at fractional costs.
